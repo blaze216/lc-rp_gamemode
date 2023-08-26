@@ -1,0 +1,8 @@
+enum MYSQL_SETTINGS
+{
+	SQL_HOST,
+	SQL_USER,
+	SQL_PASS,
+	SQL_DB
+}
+new sqlData[MYSQL_SETTINGS][30];

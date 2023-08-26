@@ -1,0 +1,10 @@
+#define MAX_TICKETS	8
+
+enum TICKETS_ENUM
+{
+	tID,
+	tReason[128],
+	tAmount
+}
+new Tickets[MAX_PLAYERS][MAX_TICKETS][TICKETS_ENUM],
+	Ticket[MAX_PLAYERS][TICKETS_ENUM];

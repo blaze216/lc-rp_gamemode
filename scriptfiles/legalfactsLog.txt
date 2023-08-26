@@ -1,0 +1,2 @@
+[/muhurle evekle] David Black (C_ID: 1444 | A_ID: 10201), 583 (S_ID: 0) ID'li evi muhurledi. [Tarih: ]
+[/muhurle evkaldir] David Black (C_ID: 1444 | A_ID: 10201), 583 (S_ID: 0) ID'li evin muhurunu kaldirdi. [Tarih: ]

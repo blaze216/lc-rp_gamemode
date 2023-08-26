@@ -1,0 +1,14 @@
+#define GRAFFITY_OBJECT_ID      (19482)
+
+#define MAX_GRAFFITY_COLORS     (7)
+#define MAX_GRAFFITY_BACKS      (8)
+#define MAX_GRAFFITY_FONTS      (11)
+
+#define MIN_GRAFFITY_FONTSIZE   (12)
+#define MAX_GRAFFITY_FONTSIZE   (28)
+
+#define MIN_GRAFFITY_TEXT       (4)
+#define MAX_GRAFFITY_TEXT       (24)
+
+#define GRAFFITY_DISTANCE_WARN  (10.0)
+#define GRAFFITY_DESTROY_TIME   (15)

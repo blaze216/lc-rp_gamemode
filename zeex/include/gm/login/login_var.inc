@@ -1,0 +1,12 @@
+new login_char_id[MAX_PLAYERS][MAX_CHARACTERS],
+	login_char_name[MAX_PLAYERS][MAX_CHARACTERS][MAX_PLAYER_NAME+1];
+
+
+#define MAX_SPAWN_POINT 4
+new Float: first_spawn[MAX_SPAWN_POINT][4] =
+{
+    {2269.4795,-81.2131,26.5414,184.9469}, // P-C
+    {1358.6038,251.7677,19.5669,64.0962}, //  Monty
+	{207.7609,-64.7452,1.5781,178.4230}, // Dilimore
+	{-204.1443,1119.1970,19.7422,269.5804} //  Fort Carson
+};
