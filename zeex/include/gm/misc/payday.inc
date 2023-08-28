@@ -9,8 +9,8 @@ PayDay(i)
 	if(ServerInfo[sDoublePayday]) checks = ServerInfo[sPricePayday] * 2;
 	else checks = ServerInfo[sPricePayday];
 
-	if (IsPlayerFactionPolice(i) || IsPlayerFactionDocs(i) || IsPlayerFactionNewsOff(i)) checks += 200 + (PlayerInfo[i][pRank] * 70);  
-	if (IsPlayerFactionMedic(i) || IsPlayerFactionFire(i) || IsPlayerFactionMedic(i)) checks += 200 + (PlayerInfo[i][pRank] * 60);
+	if (IsPlayerFactionPolice(i) || IsPlayerFactionDocs(i) || IsPlayerFactionNewsOff(i)) checks += 150 + (PlayerInfo[i][pRank] * 50);  
+	if (IsPlayerFactionMedic(i) || IsPlayerFactionFire(i) || IsPlayerFactionMedic(i)) checks += 150 + (PlayerInfo[i][pRank] * 50);
 
 	if (PlayerInfo[i][pJob] == JOB_MECHANIC)		checks += 100;	
 	else if (PlayerInfo[i][pJob] == JOB_TAXI) 	checks += 100;
