@@ -482,8 +482,8 @@ Player_OnPlayerText(playerid, text[])
 	    }
         if (strlen(text) > MAXLEN)
 		{
-			SendClientMessageEx(targetid, COLOR_YELLOWG, "%s %s (telefon): %.*s ...", GetPhoneSexName(targetid), pTemp[targetid][pCallName], MAXLEN, text);
-			SendClientMessageEx(targetid, COLOR_YELLOWG, "%s %s (telefon): ... %s", GetPhoneSexName(targetid), pTemp[targetid][pCallName], text[MAXLEN]);
+			SendPhoneMessageEx(targetid, COLOR_YELLOWG, "%s %s (telefon): %.*s ...", GetPhoneSexName(targetid), pTemp[targetid][pCallName], MAXLEN, text);
+			SendPhoneMessageEx(targetid, COLOR_YELLOWG, "%s %s (telefon): ... %s", GetPhoneSexName(targetid), pTemp[targetid][pCallName], text[MAXLEN]);
 
 			if (GetPVarInt(targetid, #loud_speak) == 1)
 			{
@@ -493,7 +493,7 @@ Player_OnPlayerText(playerid, text[])
 		}
 		else
 		{
-			SendClientMessageEx(targetid, COLOR_YELLOWG, "%s %s (telefon): %s", GetPhoneSexName(targetid), pTemp[targetid][pCallName], text);
+			SendPhoneMessageEx(targetid, COLOR_YELLOWG, "%s %s (telefon): %s", GetPhoneSexName(targetid), pTemp[targetid][pCallName], text);
 
 			if (GetPVarInt(targetid, #loud_speak) == 1)
 				SendLocalMessage(10.0, targetid, COLOR_FADE1,COLOR_FADE2,COLOR_FADE3,COLOR_FADE4,COLOR_FADE5, "%s (telefon): %s", pTemp[targetid][pCallName], text);

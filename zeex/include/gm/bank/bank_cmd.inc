@@ -74,7 +74,7 @@ CMD:mevduat(playerid, params[])
 	if (PlayerInfo[playerid][pSavings] == 0)
 	{
 		if (sscanf(params, "d", amount))		return SendHelpMessage(playerid, "/mevduat [tutar]");
-		if (amount < 50000 || amount > 1000000)	return SendErrorMessage(playerid, "Mevduat tutarı 50000 ile 1000000 arasında olmalıdır.");
+		if (amount < 50000 || amount > 150000)	return SendErrorMessage(playerid, "Mevduat tutarı 50000 ile 150000 arasında olmalıdır.");
 		if (GetCash(playerid) < amount) 		return SendNotCash(playerid);
 
 		SendSyntaxMessage(playerid, "$%d tutarını mevduat hesabınıza yatırdınız. Faiz oranı: 1%%", amount);

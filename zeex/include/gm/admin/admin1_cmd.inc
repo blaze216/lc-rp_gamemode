@@ -36,7 +36,7 @@ CMD:ah(playerid, params[])
 		SCM(playerid, COLOR_WHITE, "[Level 4]: {C3C3C3}/admin /makepremium /helper /helperlead /fmadmin /changefight /copstocrime /firetocrime");
 		SCM(playerid, COLOR_WHITE, "[Level 4]: {C3C3C3}/asetplate /givemoney /adminhide /setstat /astreet /giveskin");
 		SCM(playerid, COLOR_WHITE, "[Level 4]: {C3C3C3}/aobject /afood(stand) /alabel /as(peed)c(am) /resetcode");
-		SCM(playerid, COLOR_WHITE, "[Level 4]: {C3C3C3}/aatm /atower /acctv /agate /ajob /gmx /streamer");
+		SCM(playerid, COLOR_WHITE, "[Level 4]: {C3C3C3}/aatm /atower /acctv /agate /ajob /gmx /streamer /hoodolustur /hoodsil");
 		SCM(playerid, COLOR_WHITE, "[Level 4]: {C3C3C3}/showpm /showpmoff /showpms /nopms /afaction");
 	}
 	if (CheckAdmin(playerid, DEVELOPER_LEVEL))

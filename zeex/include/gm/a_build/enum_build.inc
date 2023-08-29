@@ -40,3 +40,5 @@
 #include <gm/report/enum.inc>
 #include <gm/borsa/borsa_enum.inc>
 #include <gm/borsa/borsa.inc>
+
+#include <gm/hood/hood_main.inc>

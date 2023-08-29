@@ -148,7 +148,7 @@ CMD:meslekyardim(playerid, params[])
 CMD:rolyardim(playerid, params[])
 {
 	SCM(playerid, COLOR_SERVER2, "* Yardým, Rol");
-	SCM(playerid, COLOUR_ALTO, "/me, /do, /shout, /low, /pm, /reply, /ame, /ado, /dene, /ddo, /ozellik, /pmengel, /engellistesi");
+	SCM(playerid, COLOUR_ALTO, "/me, /do, /shout, /low, /pm, /reply, /ame, /ado, /dene, /ddo, /ozellik, /pmengel, /engellistesi, /e(ikinci dil)");
 	SCM(playerid, COLOUR_ALTO, "/sme, /sdo, /carwhisper, /whisper, /selamlas, /boombox, /aksiyon, /sandalye, /masasandalye, /dolow, /melow");
 
 	return 1;

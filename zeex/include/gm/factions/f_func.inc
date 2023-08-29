@@ -336,6 +336,49 @@ SendFactionMessage(faction, color, const str[], {Float,_}:...)
     return 1;
 }
 
+stock SendPhoneMessageEx(target, color, const str[], {Float,_}:...)
+{
+    static args, start, end, string[144];
+ 
+    #emit LOAD.S.pri 8
+    #emit STOR.pri args
+ 
+    if (args > 12)
+    {
+        #emit ADDR.pri str
+        #emit STOR.pri start
+ 
+        for (end = start + (args - 12); end > start; end -= 4)
+        {
+            #emit LREF.pri end
+            #emit PUSH.pri
+        }
+        #emit PUSH.S str
+        #emit PUSH.C 144
+        #emit PUSH.C string
+        #emit PUSH.C args
+        #emit SYSREQ.C format
+        #emit LCTRL 5
+        #emit SCTRL 4
+ 
+        foreach(Player, i)
+        {
+            if(!IsPlayerLogged(i) || pTemp[i][pTracePlayer] != target || i != target) continue;
+ 
+            SendClientMessage(i, color, string);
+        }
+        return 1;
+    }
+ 
+    foreach(Player, i)
+    {
+        if(!IsPlayerLogged(i) || pTemp[i][pTracePlayer] != target || i != target) continue;
+ 
+        SendClientMessage(i, color, str);
+    }
+    return 1;
+}
+
 CreateFactionVehicle(bool: crt, model, Float: x, Float: y, Float: z, Float: a, color1, color2, type, faction, plate[], vw, interior, sqlid = 0)
 {
 	new vehicle;

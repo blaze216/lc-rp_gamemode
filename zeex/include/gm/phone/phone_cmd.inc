@@ -652,6 +652,7 @@ CMD:telefonat(playerid, params[])
 
 	SendNearbyMessage(Range_Normal, playerid, COLOR_PURPLE, "* %s telefonunu חצpe atar.", GetNameWithMask(playerid));
 
+    PlayerInfo[playerid][pBurnerTelefon] = 0;
 	PlayerInfo[playerid][pNumber] = 0;
 	PlayerInfo[playerid][pPhoneModel] = 0;
 	return 1;

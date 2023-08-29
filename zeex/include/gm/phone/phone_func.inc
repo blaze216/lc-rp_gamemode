@@ -198,6 +198,7 @@ stock Phone_Create(playerid, type = 0)
 	    pc_cmd_ame(playerid, "telefonunu çýkarýr.");
  		SendClientMessage(playerid, -1, "[ ! ] /telefon ile menüyü tekrar kapatabilirsin. /pc komutu ile imleci aktif edebilirsin.");
 		SendClientMessage(playerid, -1, "[ ! ] ESC tuþuna basarak yürüyüþ moduna geçebilirsin.");
+		if (PlayerInfo[playerid][pBurnerTelefon]) SendClientMessage(playerid, -1, "[ ! ] Þu an burner telefon modundasýn. Dinlenemezsin ve takip edilemezsin.");
 		SelectTextDraw(playerid, -1);
 	}
 
@@ -405,6 +406,9 @@ stock CancelCall(playerid)
 
 	RemovePlayerAttachedObject(playerid, ATTACH_HANDS);
 	RemovePlayerAttachedObject(targetid, ATTACH_HANDS);
+
+	if (PlayerInfo[playerid][pBurnerTelefon]) PlayerInfo[playerid][pBurnerTelefon] = 0, SendServerMessage(playerid, "Tek kullanýmlýk telefonun çaðrýdan sonra silindi.");
+	if (PlayerInfo[targetid][pBurnerTelefon]) PlayerInfo[targetid][pBurnerTelefon] = 0, SendServerMessage(targetid, "Tek kullanýmlýk telefonun çaðrýdan sonra silindi.");
 	return 1;
 }
 

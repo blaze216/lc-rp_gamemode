@@ -543,12 +543,7 @@ CMD:satinal(playerid, params[])
 	        Dialog_Show(playerid, BuyInterior, DIALOG_STYLE_INPUT, "{FFFFFF}Dekorasyon", "{FFFFFF}Interiorunu deðiþtirmek istediðiniz evin ID'sini giriniz: \nAyrýca ev sana ait olmalýdýr (/mulklerim)", ">>>", "Kapat");
 	    }
 
-		if (BizInfo[bizid][bizType] == BIZ_PAWN)
-		{
-			SendHelpMessage(playerid, "/sat");
-		}
-
-	    else if (BizInfo[bizid][bizType] == BIZ_STORE || BizInfo[bizid][bizType] == BIZ_PHARMACY || BizInfo[bizid][bizType] == BIZ_BAR) //4
+	    else if (BizInfo[bizid][bizType] == BIZ_STORE || BizInfo[bizid][bizType] == BIZ_PHARMACY || BizInfo[bizid][bizType] == BIZ_BAR || BizInfo[bizid][bizType] == BIZ_PAWN) //4
 	    {
 			new type;
 			switch(BizInfo[bizid][bizType])
@@ -556,8 +551,10 @@ CMD:satinal(playerid, params[])
 				case BIZ_STORE: type = 4;
 				case BIZ_BAR: type = 5;
 				case BIZ_PHARMACY: type = 6;
+				case BIZ_PAWN: type = 7;
 			}
 			if (!type)	return SendErrorMessage(playerid, "[#PL-493] Sistem Hatasý!"); //return 1;
+			if (type == 7) SendHelpMessage(playerid, "/sat ile de satýþ menüsünü açabilirsin.");
 
 			new diatxt[LIMIT_MAX_PRODUCTS*256];
 
@@ -670,7 +667,7 @@ CMD:atesyak(playerid, params[])
 
 	SendSyntaxMessage(playerid, "Ateþ yakmaya baþladýnýz. Ýþlemi geri almak için: {FF6347}/durdur");
 
-	RemovePlayerItem(playerid, INV_GASCAN, 1);
+	PlayerInfo[playerid][pBenzinBidonu] = 0;
 
 	SavePlayerPos(playerid);
 	FreezePlayer(playerid);

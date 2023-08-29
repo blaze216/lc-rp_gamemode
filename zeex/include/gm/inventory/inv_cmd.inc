@@ -8,11 +8,11 @@ CMD:envanter(playerid, params[])
 	
 	if (GetPVarInt(playerid, #pDelay)) return 1;
 
-    SendClientMessageEx(playerid, COLOR_SERVER2, "Envanter:{FFFFFF} Maske: [%s], Çakmak: [%s], Sigara: [%d dal], Kalem: [%s], Boombox: [%s]", (PlayerInfo[playerid][pMaske] ? "Var" : "Yok"), (PlayerInfo[playerid][pCakmak] ? "Var" : "Yok"),
-	PlayerInfo[playerid][pSigara], (PlayerInfo[playerid][pKalem] ? "Var" : "Yok"), (PlayerInfo[playerid][pBoombox] ? "Var" : "Yok"));
+    SendClientMessageEx(playerid, COLOR_SERVER2, "Envanter:{FFFFFF} Maske: [%s], Çakmak: [%s], Sigara: [%d dal], Kalem: [%s], Boombox: [%s], Burner Tel.: [%s]", (PlayerInfo[playerid][pMaske] ? "Var" : "Yok"), (PlayerInfo[playerid][pCakmak] ? "Var" : "Yok"),
+	PlayerInfo[playerid][pSigara], (PlayerInfo[playerid][pKalem] ? "Var" : "Yok"), (PlayerInfo[playerid][pBoombox] ? "Var" : "Yok"), (PlayerInfo[playerid][pBurnerTelefon] ? "Var" : "Yok"));
 
-    SendClientMessageEx(playerid, COLOR_SERVER2, "Envanter:{FFFFFF} Telsiz: [%s], Zar: [%s], Oyun Kartý: [%s], Bidon: [%s]", (PlayerInfo[playerid][pTelsiz] ? "Var" : "Yok"), (PlayerInfo[playerid][pZar] ? "Var" : "Yok"),
-	(PlayerInfo[playerid][pOyunKarti] ? "Var" : "Yok"), (PlayerInfo[playerid][pBenzinBidonu] ? "Var" : "Yok"));	
+    SendClientMessageEx(playerid, COLOR_SERVER2, "Envanter:{FFFFFF} Telsiz: [%s], Zar: [%s], Oyun Kartý: [%s], Bidon: [%s], Çalýntý Radyo: [%s]", (PlayerInfo[playerid][pTelsiz] ? "Var" : "Yok"), (PlayerInfo[playerid][pZar] ? "Var" : "Yok"),
+	(PlayerInfo[playerid][pOyunKarti] ? "Var" : "Yok"), (PlayerInfo[playerid][pBenzinBidonu] ? "Var" : "Yok"), (PlayerInfo[playerid][pCalintiRadyo] ? "Var" : "Yok"));	
 
     SendClientMessageEx(playerid, COLOR_SERVER2, "Envanter:{FFFFFF} Kullaným yollarý için /envanteryardim yazýnýz.");		
 /*
@@ -98,6 +98,7 @@ CMD:bidondoldur(playerid)
     VehicleInfo[vehicle][carFuel] += 20.0;
     SM2(playerid, "Aracýnýza bidon ile yakýt ikmali yaptýnýz.");
     pc_cmd_me(playerid, "aracýna yakýt doldurur.");
+	PlayerInfo[playerid][pBenzinBidonu] = 0;
 
 	return 1;
 }

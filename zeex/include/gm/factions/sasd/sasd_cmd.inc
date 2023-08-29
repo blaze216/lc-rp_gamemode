@@ -174,7 +174,8 @@ CMD:takip(playerid, params[])
 	if (pTemp[playerid][pTracePlayer] != INVALID_PLAYER_ID)			return SendErrorMessage(playerid, "Önce oturumu kapatýn. (/takipbirak)");
 	//if (trace == PlayerInfo[playerid][pNumber])						return 1;
     if ((targetid = GetNumberOwner(trace)) == INVALID_PLAYER_ID)	return SendErrorMessage(playerid, "Belirtilen numara veritabanýnda bulunamadý.");
-    if (PlayerInfo[targetid][pJailed] != 0)							return SendErrorMessage(playerid, "Bu odanýn sahibi gözaltýnda.");
+    if (PlayerInfo[targetid][pJailed] != 0)							return SendErrorMessage(playerid, "Bu numaranýn sahibi gözaltýnda.");
+	if (PlayerInfo[targetid][pBurnerTelefon] != 0)                  return SendErrorMessage(playerid, "Bu numara takip edilemez. (burner telefon)");
 
 	SendFactionMessageF(FACTION_POLICE, COLOR_POLICECHAT, "** HQ: %s %s telefon numarasýný takip ediyor: %i. **", GetRankName(playerid), GetNameEx(playerid), trace);
 
@@ -1375,7 +1376,7 @@ CMD:aracbagla(playerid, params[])
 {
     new faction = PlayerInfo[playerid][pFaction], vehicle = GetPlayerVehicleID(playerid);
 
-	if (!IsFactionPolice(faction))				return SendErrorMessage(playerid, "Bu komutu kullanamazsýnýz.");
+	if (!IsFactionPolice(faction) && !IsFactionCity(faction))				return SendErrorMessage(playerid, "Bu komutu kullanamazsýnýz.");
 	if (!PlayerInfo[playerid][pOnDuty])			return SendErrorMessage(playerid, "Ýþbaþýnda olmalýsýnýz.");
 	if (!IsATowTruck(vehicle))					return SendErrorMessage(playerid, "Bir çekicide olmalýsýn. ");
     if (!IsTrailerAttachedToVehicle(vehicle))	return SendErrorMessage(playerid, "Çekiciye bir araç baðlý deðil.");
@@ -1383,7 +1384,7 @@ CMD:aracbagla(playerid, params[])
 	new trailer = GetVehicleTrailer(vehicle);
 
 	if (!VehicleInfo[trailer][carOwnerID])								return SendErrorMessage(playerid, "Sadece kiþisel araçlar haczedilebilir.");
-	if (!PlayerToPoint(10.0, playerid, IMPOUNDX, IMPOUNDY, IMPOUNDZ))	return SendErrorMessage(playerid, "Park yeri bulunamadý.");
+	//if (!PlayerToPoint(10.0, playerid, IMPOUNDX, IMPOUNDY, IMPOUNDZ))	return SendErrorMessage(playerid, "Park yeri bulunamadý.");
 
 	DetachTrailerFromVehicle(vehicle);
 	GetVehiclePos(trailer, VehicleInfo[trailer][carParkX], VehicleInfo[trailer][carParkY], VehicleInfo[trailer][carParkZ]);

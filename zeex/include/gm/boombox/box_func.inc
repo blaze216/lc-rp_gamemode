@@ -6,7 +6,7 @@ PlaceBoombox(playerid)
 	foreach(new i : Player)
 	{
 		if (!IsPlayerLogged(i) || !BoomboxInfo[i][bUsed]) 	continue;
-		if (IsValidDynamicArea(BoomboxInfo[i][bArea]))		return SendErrorMessage(playerid, "Yakýn bir noktada boombox bulunuyor.");
+		if (IsPlayerInRangeOfPoint(i, 50.0, BoomboxInfo[i][bPosX], BoomboxInfo[i][bPosY], BoomboxInfo[i][bPosZ]) && BoomboxInfo[i][bUsed])		return SendErrorMessage(playerid, "Yakýn bir noktada boombox bulunuyor.");
 	}
 
 	new id = -1;
@@ -47,7 +47,7 @@ ChangeUrlBoombox(playerid, url[])
 
 		foreach (new i : Player) 
 		{
-			if (IsPlayerInRangeOfPoint(i, 50.0, pXaz, pXaz, pXaz), !IsPlayerInAnyVehicle(playerid))
+			if (IsPlayerInRangeOfPoint(i, 50.0, pXaz, pXaz, pXaz) && !IsPlayerInAnyVehicle(playerid))
 			{
 				pTemp[i][pBoombox] = playerid;
 			    StopAudioStreamForPlayer(i);

@@ -4,18 +4,17 @@ PayDay(i)
 {
 	if (!IsPlayerLogged(i)) return 1;
 
-	new oldbank = PlayerInfo[i][pBank], savings, tax_house, rent_house, debt, checks;
+	new oldbank = PlayerInfo[i][pBank], faction = PlayerInfo[i][pFaction], savings, tax_house, rent_house, debt, checks;
 
 	if(ServerInfo[sDoublePayday]) checks = ServerInfo[sPricePayday] * 2;
 	else checks = ServerInfo[sPricePayday];
 
-	if (IsPlayerFactionPolice(i) || IsPlayerFactionDocs(i) || IsPlayerFactionNewsOff(i)) checks += 200 + (PlayerInfo[i][pRank] * 70);  
-	if (IsPlayerFactionMedic(i) || IsPlayerFactionFire(i) || IsPlayerFactionMedic(i)) checks += 200 + (PlayerInfo[i][pRank] * 60);
+	if (IsFactionLegal(faction)) checks += 200 + (PlayerInfo[i][pRank] * 60);  
 
 	if (PlayerInfo[i][pJob] == JOB_MECHANIC)		checks += 100;	
 	else if (PlayerInfo[i][pJob] == JOB_TAXI) 	checks += 100;
 	
-	if (PlayerInfo[i][pSavings] >= 50000 && PlayerInfo[i][pSavings] < 1000000) savings = PlayerInfo[i][pSavings]*MEVDUAT_FAIZ_ORAN/100;
+	if (PlayerInfo[i][pSavings] >= 50000 && PlayerInfo[i][pSavings] < 500000) savings = PlayerInfo[i][pSavings]*MEVDUAT_FAIZ_ORAN/100;
     PlayerInfo[i][pSavings] += savings;
 
 	if (PlayerInfo[i][pBank] < 0)

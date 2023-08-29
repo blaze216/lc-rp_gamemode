@@ -156,6 +156,8 @@ enum PLAYER_DATA_ENUM
 	pZar,
 	pBenzinBidonu,
 	pTelsiz,
+	pCalintiRadyo,
+	pBurnerTelefon,
 
 	pScriptedGun[12],
 	pScriptedAmmo[12],

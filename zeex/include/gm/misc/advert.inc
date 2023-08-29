@@ -71,7 +71,7 @@ CMD:sonreklam(playerid, params[])
 			format(mes, sizeof(mes), "%s%i\t%s", mes, i+1, LastAdvertInfo[i][advertText]);
 		}
 			
-		new time[10];
+		new time[32];
 
 		if (gettime() - LastAdvertInfo[i][adverttime] <= 59)
 			format(time, sizeof(time), "%d saniye önce", gettime() - LastAdvertInfo[i][adverttime]);
@@ -93,8 +93,8 @@ CMD:reklam(playerid, params[])
 	if (PlayerInfo[playerid][pInjured] != 0 || GetPVarInt(playerid, "Freeze") || pTemp[playerid][pTaserTime] || pTemp[playerid][pCuffed]) return 1;
 	if (!PlayerInfo[playerid][pNumber])				return SendErrorMessage(playerid, "Bir telefona ihtiyacýn var.");
     if (sscanf(params, "s[144]", params)) 		return SendHelpMessage(playerid, "/reklam [yazý]");
-    if (PlayerInfo[playerid][pSettings] & togAdv)	return SendErrorMessage(playerid, "Reklam vermek için reklam görmeyi etkinleþtirin. /ayarlar");
-	if (pTemp[playerid][pAdvertTime] > gettime())	return SendErrorMessage(playerid, "Tekrar reklam vermek için %s dakika beklemen gerek.", ConvertSecond(pTemp[playerid][pAdvertTime] - gettime()));
+    //if (PlayerInfo[playerid][pSettings] & togAdv)	return SendErrorMessage(playerid, "Reklam vermek için reklam görmeyi etkinleþtirin. /ayarlar");
+	//if (pTemp[playerid][pAdvertTime] > gettime())	return SendErrorMessage(playerid, "Tekrar reklam vermek için %s dakika beklemen gerek.", ConvertSecond(pTemp[playerid][pAdvertTime] - gettime()));
     if(FindBadWordsOnAdvert(params))
     {
         SendErrorMessage(playerid,"Sohbet kutucuðuna girdiðiniz bir kelime yasaklýdýr. Tekrarlamayýnýz.");
@@ -141,11 +141,11 @@ CMD:reklam(playerid, params[])
 
 	SendServerMessage(playerid, "Baþarýyla reklam verdiniz. Bir sonraki reklam için 300 saniye beklemelisiniz.");
 
+	if (lastadvert >= MAX_LAST_ADVERT) lastadvert = 0;
+	else lastadvert++;
 	format(LastAdvertInfo[lastadvert][advertText], 144, "%s", params);
 	LastAdvertInfo[lastadvert][adverttime] = gettime();
 	LastAdvertInfo[lastadvert][advertnumber] = PlayerInfo[playerid][pNumber];
-	if (lastadvert == MAX_LAST_ADVERT) lastadvert = 0;
-	else lastadvert++;
 
     pTemp[playerid][pAdvertTime] = gettime() + 300;
 	GiveCash(playerid, -BizInfo[bizid][bizEntrance]);
@@ -208,12 +208,11 @@ CMD:mekanreklam(playerid, params[])
 
    // SendDiscordAdvertisements(GetNameEx(playerid), PlayerInfo[playerid][pNumber], params);
 
+	if (lastadvert >= MAX_LAST_ADVERT) lastadvert = 0;
+	else lastadvert++;
 	format(LastAdvertInfo[lastadvert][advertText], 144, "%s", params);
 	LastAdvertInfo[lastadvert][adverttime] = gettime();
 	LastAdvertInfo[lastadvert][advertnumber] = PlayerInfo[playerid][pNumber];
-	if (lastadvert == MAX_LAST_ADVERT) lastadvert = 0;
-	else lastadvert++;
-
 	return 1;
 }
 

@@ -65,7 +65,7 @@ CMD:arac(playerid, params[])
 	if (sscanf(params, "s[13]S()[128]", parametrs, arg))
 	{
 		SendHelpMessage(playerid, "/(a)rac [seçenekler]");
-		SendSyntaxMessage(playerid, "liste | getir | park | bul/gps | kilit | plakagizle | sahteplaka | ilan | anahtar");
+		SendSyntaxMessage(playerid, "liste | getir | park | bul/gps | kilit | plakagizle | sahteplaka | ilan | anahtar | paketler");
 		SendSyntaxMessage(playerid, "ceset | cek | bilgi | cezalar | sistemesat | sat | dmvkayit | ilankaldir | kirala");
 		SendClientMessageEx(playerid, COLOR_GRAD2, "[EKSTRA]{FFFFFF} /aracmenu /araclarim /ahe /motor /farlar /bagaj /kaput /radyoayarla /cam /hacizdencikar");
 		return 1;
@@ -85,6 +85,25 @@ CMD:arac(playerid, params[])
 	{
 		pc_cmd_arackirala(playerid, "");
 	}
+
+	else if(!strcmp(parametrs, "paketler", true))
+	{
+		new aracid = Arac_Yakin(playerid, 3.5);
+		if(aracid == -1) return SendErrorMessage(playerid, "Bu iþlevi araç içerisinde kullanabilirsin.");
+		if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendClientMessageEx(playerid, COLOUR_TOMATO, "[ARAÇ] {FFFFFF}Bu iþlevi aracýn sürücü koltuðundayken kullanabilirsin.");
+		if(Arac_Model(VehicleInfo[aracid][carModel]) == VEHICLE_TYPE_BIKE) return SendClientMessageEx(playerid, COLOUR_TOMATO, "[ARAÇ] {FFFFFF}Bu iþlevi bisiklette kullanamazsýn.");
+//      if(Arac_Sahip(playerid, aracid, false) == 0) return SendErrorMessage(playerid, "Bu aracýn kendisine veya anahtarýna sahip deðilsin.");
+		if(VehicleInfo[aracid][carLocked]) return SendClientMessageEx(playerid, COLOUR_TOMATO, "[ARAÇ] {FFFFFF}Kilitli araçlarýn paketlerine eriþemezsin.");
+		if(VehicleInfo[aracid][carType] > 0) return SendClientMessageEx(playerid, COLOUR_TOMATO, "[ARAÇ] {FFFFFF}Meslek araçlarýnda bu iþlevi kullanamazsýn.");
+		if(VehicleInfo[aracid][carRent] > 0 && VehicleInfo[aracid][carRent] != INVALID_PLAYER_ID) return SendClientMessageEx(playerid, COLOUR_TOMATO, "[ARAÇ] {FFFFFF}Kiralýk araçlarda bu iþlevi kullanamazsýn.");
+		if(IsFactionLegal(VehicleInfo[aracid][carFaction])) return SendClientMessageEx(playerid, COLOUR_TOMATO, "[ARAÇ] {FFFFFF}Aracýn baðlý olduðu oluþum sebebiyle bu araçta bu iþlevi kullanamazsýn.");
+		new sorgu[500];
+		mysql_format(dbHandle, sorgu, sizeof(sorgu), "(SELECT COUNT(*) FROM paketler WHERE sqlid = %d LIMIT 1) as paketsayi", PlayerInfo[playerid][pID]);
+		mysql_format(dbHandle, sorgu, sizeof(sorgu), "%s, (SELECT model FROM cars WHERE id = paketler.aracsqlid LIMIT 1) as model", sorgu);
+		mysql_format(dbHandle, sorgu, sizeof(sorgu), "SELECT *, %s FROM paketler WHERE aracsqlid = %d", sorgu, VehicleInfo[aracid][carID]);
+		mysql_tquery(dbHandle, sorgu, "UyusturucuSorgu", "ddddds", playerid, VehicleInfo[aracid][carID], 23, 0, 0, "");
+	}
+
 
 	else if(!strcmp(parametrs, "anahtar", true))
 	{

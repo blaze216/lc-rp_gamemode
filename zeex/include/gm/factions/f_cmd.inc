@@ -594,8 +594,8 @@ CMD:megafon(playerid, params[])
 	if (sscanf(params, "s[144]", text))                                                     return SendHelpMessage(playerid, "(/m)egafon[mesaj]"); 
     if (!IsFactionLegal(faction))															return SendErrorMessage(playerid, "Herhangi bir devlet kurumuna üye deðilsin.");
 
-	if(IsPlayerInAnyVehicle(playerid)) SendNearbyMessage(Range_VLong, playerid, COLOR_YELLOWG, "[ o< %s: %s ]", GetNameWithMask(playerid), text);
-	else SendNearbyMessage(Range_VLong, playerid, COLOR_YELLOWG, "(El Megafonu) %s: %s", GetNameWithMask(playerid), text);
+	if(IsPlayerInAnyVehicle(playerid)) SendNearbyMessage(65.0, playerid, COLOR_YELLOWG, "[ o< %s: %s ]", GetNameWithMask(playerid), text);
+	else SendNearbyMessage(60.0, playerid, COLOR_YELLOWG, "(El Megafonu) %s: %s", GetNameWithMask(playerid), text);
 	return 1;
 }
 
@@ -606,7 +606,7 @@ CMD:m1(playerid, params[])
 	new Float:pXaz, Float:pYaz, Float:pZaz, string[100];
 	GetPlayerPos(playerid, pXaz, pYaz, pZaz);
 	format(string, sizeof(string), "[ %s: o< Liberty City Polis Departmaný, olduðun yerde kal! ]", GetNameEx(playerid));
-	SendLocalMessage(Range_Long, playerid, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, string);
+	SendLocalMessage(45.0, playerid, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, string);
 	PlaySoundEx(15800, pXaz, pYaz, pZaz, 40);
 	return 1;
 }

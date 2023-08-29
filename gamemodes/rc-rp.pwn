@@ -598,7 +598,6 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 	for(new i; i < Iter_Count(boomboxIter); i++) 	 if (areaid == BoomboxInfo[i][bArea])  Box_OnPlayerEnterArea(playerid, areaid);
 	for(new i; i < Iter_Count(speedcamObjects); i++) if (areaid == speedcam[i][sc_areaid]) SpeedCam_OnPlayerEnterArea(playerid, areaid);
-
 	return 1;
 }
 

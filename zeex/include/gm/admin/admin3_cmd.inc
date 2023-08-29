@@ -1452,10 +1452,11 @@ CMD:abiz(playerid, params[])
 			case BIZ_STORE:		biztype = 4;
 			case BIZ_BAR:		biztype = 5;
 			case BIZ_PHARMACY:	biztype = 6;
+			case BIZ_PAWN:	biztype = 7;
 		}
 
 		if (biztype != -1) {
-			for (new i = 0; i < max_product[type]; i++) {
+			for (new i = 0; i < max_product[biztype]; i++) {
 				BizInfo[bizid][bizProductPrice][i] = biz_prices[biztype][i];
 			}
 		}
@@ -1640,6 +1641,26 @@ CMD:abiz(playerid, params[])
 
 			if (sscanf(arg, "i", type)) 					return SendHelpMessage(playerid, "/abiz edit [ID] type [tip]");
 			if (type < 0 || type > sizeof(biz_types))	return SendErrorMessage(playerid, "Ýþletme tipi 0 ile %i arasýnda olmalýdýr.", sizeof(biz_types));
+
+		    new biztype = -1;
+
+		    switch(type)
+		    {
+			    case BIZ_PIZZA:		biztype = 0;
+			    case BIZ_CLUCKIN:	biztype = 1;
+			    case BIZ_BURGER:	biztype = 2;
+			    case BIZ_DONUT:		biztype = 3;
+			    case BIZ_STORE:		biztype = 4;
+			    case BIZ_BAR:		biztype = 5;
+			    case BIZ_PHARMACY:	biztype = 6;
+			    case BIZ_PAWN:	biztype = 7;
+		    }			
+
+		    if (biztype != -1) {
+			    for (new i = 0; i < max_product[biztype]; i++) {
+				    BizInfo[id][bizProductPrice][i] = biz_prices[biztype][i];
+			    }
+		    }
 
 			BizInfo[id][bizType] = type;
 			SQL_SetInteger("business", "type", BizInfo[id][bizType], BizInfo[id][bizID]);

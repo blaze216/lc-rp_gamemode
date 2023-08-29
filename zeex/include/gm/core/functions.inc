@@ -1192,6 +1192,7 @@ SilahElkoyFonksiyon(playerid, targetid, type)
 	        PlayerInfo[targetid][pCicek] = 0;		
 			PlayerInfo[targetid][pMaske] = 0;	
 			PlayerInfo[targetid][pBoombox] = 0;
+			PlayerInfo[targetid][pBurnerTelefon] = 0;
 
 	        SendServerMessage(targetid, "%s adlý polis memuru silahlarýna el koydu. (%s)", GetNameEx(playerid), GetFullDate());
 

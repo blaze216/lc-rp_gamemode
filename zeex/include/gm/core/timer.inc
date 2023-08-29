@@ -46,7 +46,7 @@ this::OneMinuteTimer()
     //========================================================================== 
 	for(new i; i != MAX_LAST_ADVERT; i++)
 	{
-		if (strlen(LastAdvertInfo[i][advertText]) == 0)	continue;
+		if (strlen(LastAdvertInfo[i][advertText]) < 3)	continue;
 
 		if (gettime() - LastAdvertInfo[i][adverttime] > 3600)
 		{

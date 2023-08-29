@@ -36,6 +36,7 @@ Factions_OnGameModeInit()
 {
     mysql_tquery(dbHandle, "SELECT id FROM faction_lockers", "LoadLockers");
 	mysql_tquery(dbHandle, "SELECT id FROM arrest_points", "LoadArrestPoints");
+	mysql_tquery(dbHandle, "SELECT * FROM `onaylihoodlar`", "Hood_Yukle");
     mysql_tquery(dbHandle, "SELECT * FROM `factions` ORDER BY `factionid`", "LoadDynamicFactions");
 	return 1;
 }

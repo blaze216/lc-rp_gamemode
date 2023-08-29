@@ -64,9 +64,9 @@ Dialog:BankMevduatYatir(playerid, listitem, response, inputtext[])
 {
 	if (!response) return pc_cmd_banka(playerid, "");
 	new amount = strval(inputtext);
-    if (amount < 50000 || amount > 1000000)	return SendErrorMessage(playerid, "Mevduat tutarı 50000 ile 1000000 arasında olmalıdır.");
+    if (amount < 50000 || amount > 150000)	return SendErrorMessage(playerid, "Mevduat tutarı 50000 ile 150000 arasında olmalıdır.");
 	if (GetCash(playerid) < amount) 		return SendNotCash(playerid);
-	if (amount + PlayerInfo[playerid][pSavings] > 1000000)    return SendErrorMessage(playerid, "Mevduat tutarı 50000 ile 1000000 arasında olmalıdır.");
+	if (amount + PlayerInfo[playerid][pSavings] > 150000)    return SendErrorMessage(playerid, "Mevduat tutarı 50000 ile 150000 arasında olmalıdır.");
 	SendSyntaxMessage(playerid, "$%d tutarını mevduat hesabınıza yatırdınız. Faiz oranı: 1%%", amount);
 	GiveCash(playerid, -amount);
 	PlayerInfo[playerid][pSavings] += amount;

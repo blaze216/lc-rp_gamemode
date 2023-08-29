@@ -8,6 +8,13 @@ Player_OnPlayerUpdate(playerid)
 	    SendSyntaxMessage(playerid, "%i saniye boyunca AFK kaldýnýz.", pTemp[playerid][pDarkAFK]-2);
 	}
 
+	for(new i = 0; i < MAX_ONAYLIHOOD; i++) if(IsPlayerInRangeOfPoint(playerid, 60.0, OnayliHoodlar[i][hoodPos][0],OnayliHoodlar[i][hoodPos][1],OnayliHoodlar[i][hoodPos][2]))
+	{
+		new str[100];
+		format(str, 100, "Bu bolge %s isimli birlige ait.", OnayliHoodlar[i][hoodAd]);
+		InfoMSG(playerid, str, 5);
+	}    
+
 	if(IsPlayerInAnyVehicle(playerid))
 	{
 		new vehicleid = GetPlayerVehicleID(playerid), location[MAX_ZONE_NAME];

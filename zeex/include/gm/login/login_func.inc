@@ -240,6 +240,8 @@ this::LoadCharacter(playerid)
 		cache_get_value_int(0, "benzinbidonu", PlayerInfo[playerid][pBenzinBidonu]);	
 		cache_get_value_int(0, "zar", PlayerInfo[playerid][pZar]);		
 		cache_get_value_int(0, "oyunkarti", PlayerInfo[playerid][pOyunKarti]);	
+		cache_get_value_int(0, "calintiradyo", PlayerInfo[playerid][pCalintiRadyo]);
+		cache_get_value_int(0, "burnertelefon", PlayerInfo[playerid][pBurnerTelefon]);	
 
 		cache_get_value_int(0, "uyusgettime", PlayerInfo[playerid][UyusKullan]);
 	    cache_get_value_int(0, "bagimlilik_exp", PlayerInfo[playerid][pBagimlilikEXP]);

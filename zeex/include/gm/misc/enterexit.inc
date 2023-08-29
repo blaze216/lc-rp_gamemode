@@ -363,6 +363,7 @@ CMD:cikis(playerid, params[])
 	if (!IsPlayerInAnyVehicle(playerid) && (id = GetNearInsideHouse(playerid, 2.0)) != -1)
 	{
         if (!GetWorld(playerid) && !GetInterior(playerid)) GetPlayerPos(playerid, PlayerInfo[playerid][pLocationPos][0], PlayerInfo[playerid][pLocationPos][1], PlayerInfo[playerid][pLocationPos][2]);
+        if (HouseInfo[id][hLocked])		return GameTextForPlayer(playerid, "~r~KILITLI!", 2500, 1);
 
 		SetPlayerPosEx(playerid,HouseInfo[id][hPosX],HouseInfo[id][hPosY],HouseInfo[id][hPosZ]);
 		SetInterior(playerid, HouseInfo[id][hPosInt]);
@@ -379,7 +380,8 @@ CMD:cikis(playerid, params[])
 	{
 		if (!HouseInfo[id][hExtX][0] && !HouseInfo[id][hExtX][0] && !HouseInfo[id][hExtX][0]) return 1;
 		if (!GetWorld(playerid) && !GetInterior(playerid)) GetPlayerPos(playerid, PlayerInfo[playerid][pLocationPos][0], PlayerInfo[playerid][pLocationPos][1], PlayerInfo[playerid][pLocationPos][2]);
-		
+		if (HouseInfo[id][hLocked])		return GameTextForPlayer(playerid, "~r~KILITLI!", 2500, 1);
+
 		SetPlayerPosEx(playerid,HouseInfo[id][hExtX][0],HouseInfo[id][hExtY][0],HouseInfo[id][hExtZ][0]);
 		SetInterior(playerid, HouseInfo[id][hExtInt][0]);
 		SetWorld(playerid,HouseInfo[id][hExtVW][0]);
@@ -398,6 +400,7 @@ CMD:cikis(playerid, params[])
 			return 1;
 		}
 
+        if (BizInfo[id][bizLocked])									return GameTextForPlayer(playerid, "~r~KILITLI!", 2500, 1);
         if (!GetWorld(playerid) && !GetInterior(playerid))	GetPlayerPos(playerid, PlayerInfo[playerid][pLocationPos][0], PlayerInfo[playerid][pLocationPos][1], PlayerInfo[playerid][pLocationPos][2]);
 
 		SetPlayerPosEx(playerid,BizInfo[id][bizPosX], BizInfo[id][bizPosY], BizInfo[id][bizPosZ]);

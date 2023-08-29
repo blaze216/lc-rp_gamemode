@@ -189,14 +189,14 @@ this::HouseCheckOwner(houseid, dbid)
 	cache_get_value_int(0, "cash", money);
 	cache_get_value_int(0, "last_login", last_login);
 
-	if (last_login < gettime()-(60*60*24)*21) {
-		mysql_format(dbHandle, query, sizeof(query), "UPDATE `users` SET `cash`=%i WHERE id=%i LIMIT 1", money+floatround(HouseInfo[houseid][hPrice]/2)/*+GetFurniturePrice(0, i)*/+HouseInfo[houseid][hCash], HouseInfo[houseid][hOwnerID]);
-		mysql_query(dbHandle, query);
+	//if (last_login < gettime()-(60*60*24)*21) {
+		//mysql_format(dbHandle, query, sizeof(query), "UPDATE `users` SET `cash`=%i WHERE id=%i LIMIT 1", money+floatround(HouseInfo[houseid][hPrice]/2)/*+GetFurniturePrice(0, i)*/+HouseInfo[houseid][hCash], HouseInfo[houseid][hOwnerID]);
+		//mysql_query(dbHandle, query);
 
-		format(query, sizeof(query), "Ev otomatik olarak sisteme satildi. [H_MYSQL: %i] oyuncu %s [MYSQL: %i] tutar $%i.", HouseInfo[houseid][hID], HouseInfo[houseid][hOwner], HouseInfo[houseid][hOwnerID], HouseInfo[houseid][hPrice]/2/*+GetFurniturePrice(0, i)*/+HouseInfo[houseid][hCash]);
-		insert_log(query, PROPERTY_LOG, 7, accountid);
-		Sell_House(houseid);
-	}
+		//format(query, sizeof(query), "Ev otomatik olarak sisteme satildi. [H_MYSQL: %i] oyuncu %s [MYSQL: %i] tutar $%i.", HouseInfo[houseid][hID], HouseInfo[houseid][hOwner], HouseInfo[houseid][hOwnerID], HouseInfo[houseid][hPrice]/2/*+GetFurniturePrice(0, i)*/+HouseInfo[houseid][hCash]);
+		//insert_log(query, PROPERTY_LOG, 7, accountid);
+		//Sell_House(houseid);
+	//}
 	return 1;
 }
 /*

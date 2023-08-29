@@ -448,7 +448,7 @@ CMD:admin(playerid, params[])
 	if (PlayerInfo[playerid][pAdmin] < 1337)			return SendNotAdmin(playerid);
 	//if (!CheckAdmin(playerid, DEVELOPER_LEVEL))	return SendNotAdmin(playerid);
 	if (sscanf(params, "ud", userid, level))		return SendHelpMessage(playerid, "/admin [ID/Karakter Adý] [seviye]");
-	if(level >= 5 || level < 0)						return SendErrorMessage(playerid, "Yönetim seviyesi 0 ile 5 arasýnda olmalýdýr.");
+	if(level > 5 || level < 0)						return SendErrorMessage(playerid, "Yönetim seviyesi 0 ile 5 arasýnda olmalýdýr.");
 	if (!IsPlayerLogged(userid))					return SendNotConnected(playerid);
 	//if (userid == playerid)							return 1;
 	if (!level && !PlayerInfo[userid][pAdmin])		return SendErrorMessage(playerid, "Belirtilen kullanýcý için bu iþlemi uygulayamazsýnýz.");

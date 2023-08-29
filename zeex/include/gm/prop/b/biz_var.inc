@@ -69,7 +69,7 @@ new trucker_teslimat[MAX_BIZ_TYPES][64] = {
 
 #define LIMIT_MAX_PRODUCTS (12)
 new const max_product[] =
-	{4, 4, 4, 3, 12, 8, 12};
+	{4, 4, 4, 3, 12, 8, 12, 1};
 
 new const name_order[][][32] =
 {
@@ -83,10 +83,11 @@ new const name_order[][][32] =
     {"Küçük porsiyon", "Orta porsiyon", "Büyük porsiyon", "Boþ", "Boþ", "Boþ", "Boþ", "Boþ", "Boþ", "Boþ", "Boþ", "Boþ"},
     {"SIM kartý", "Telsiz", "Maske", "Çakmak", "Sigara", "Zar", "Benzin Bidonu", "Kalem", "Oyun kartý", "Kamera", "Boombox", "Çiçek"},
     {"Bira", "Votka", "Kola", "Su", "Viski", "Brandy", "Soda", "Þarap", "Boþ", "Boþ", "Boþ", "Boþ"},
-    {"Medikal marijuana", "Ýlk yardým kiti", "Kýrmýzý fosfor", "Vinilbenzil alkol", "Metilamin", "Heliotropin", "Efedrin", "Potasyum permanganat", "Kloroform", "Eter", "Hidrojen klorür", "Metanol"}
+    {"Medikal marijuana", "Ýlk yardým kiti", "Kýrmýzý fosfor", "Vinilbenzil alkol", "Metilamin", "Heliotropin", "Efedrin", "Potasyum permanganat", "Kloroform", "Eter", "Hidrojen klorür", "Metanol"},
+    {"Burner Telefon", "Boþ", "Boþ", "Boþ", "Boþ", "Boþ", "Boþ", "Boþ", "Boþ", "Boþ", "Boþ", "Boþ"}
 };
 
-new const model_order[7][12] =
+new const model_order[8][12] =
 {
     {2218, 2219, 2220, 2355, 0, 0, 0, 0, 0, 0, 0, 0},
     {2215, 2216, 2217, 2353, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -94,10 +95,11 @@ new const model_order[7][12] =
     {2221, 2223, 2222, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {19792, 19942, 19801, 19998, 19897, 1906, 1650, 338, 11748, 367, 2226, 325}, // -sim -ï¿½ï¿½ï¿½ï¿½ -INV_CARSOUND -
     {2958, 1668, 1546, 1455, 1520, 19820, 19346, 1664, 0, 0, 0, 0},
-    {1578, 11736, 2709, 2709, 2709, 2709, 2709, 2709, 2709, 2709, 2709, 2709}
+    {1578, 11736, 2709, 2709, 2709, 2709, 2709, 2709, 2709, 2709, 2709, 2709},
+    {18866, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 };
 
-new const biz_prices[7][12] =
+new const biz_prices[8][12] =
 {
     {100, 100, 200, 300, 0, 0, 0, 0, 0, 0, 0, 0},
     {100, 100, 200, 300, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -105,5 +107,6 @@ new const biz_prices[7][12] =
     {100, 100, 200, 300, 0, 0, 0, 0, 0, 0, 0, 0},
     {300, 500, 1500, 50, 100, 100, 1000, 50, 100, 1500, 1000, 150},
     {100, 200, 100, 50, 300, 500, 100, 300, 0, 0, 0, 0},
-    {1000, 1500, 1000, 1000, 1500, 1000, 1500, 1000, 1000, 1000, 2000, 1500}
+    {1000, 1500, 1000, 1000, 1500, 1000, 1500, 1000, 1000, 1000, 2000, 1500},
+    {700, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 };

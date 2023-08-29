@@ -215,7 +215,7 @@ CMD:uyruk(playerid){
 	SendServerMessage(playerid, "%s, %i", GetOriginName(PlayerInfo[playerid][pOrigin]), PlayerInfo[playerid][pOrigin]);
 	return 1;
 }
-/*
+
 CMD:e(playerid, params[])
 {
 	if (PlayerInfo[playerid][pInjured] == 2)	return SendErrorMessage(playerid, "Yaralýyken konuþamazsýnýz.");
@@ -249,7 +249,7 @@ CMD:e(playerid, params[])
 	return 1;
 
 }
-*/
+
 CMD:my(playerid, params[])
 {
 	if (isnull(params))	return SendHelpMessage(playerid, "/my [açýklama]");
@@ -452,15 +452,15 @@ CMD:low(playerid,params[])
  	{
   		if (pTemp[playerid][pCallLine] != INVALID_PLAYER_ID && pTemp[playerid][pCallStatus] == 2)
     	{
-			SendLocalMessage(Range_VShort, playerid, COLOR_FADE1,COLOR_FADE1,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3, "%s kýsýk ses (telefon): %.*s ...", GetNameWithMask(playerid), MAXLEN, params);
-			SendClientMessageEx(pTemp[playerid][pCallLine], COLOR_YELLOWG, "%s kýsýk ses (telefon): %.*s ...", GetNameWithMask(playerid), MAXLEN, params);
-			SendLocalMessage(Range_VShort, playerid, COLOR_FADE1,COLOR_FADE1,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3, "... %s", params[MAXLEN]);
-			SendClientMessageEx(pTemp[playerid][pCallLine], COLOR_YELLOWG, "... %s", params[MAXLEN]);
+			SendLocalMessage(4.5, playerid, COLOR_FADE1,COLOR_FADE1,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3, "%s kýsýk ses (telefon): %.*s ...", GetNameWithMask(playerid), MAXLEN, params);
+			SendPhoneMessageEx(pTemp[playerid][pCallLine], COLOR_YELLOWG, "%s kýsýk ses (telefon): %.*s ...", GetNameWithMask(playerid), MAXLEN, params);
+			SendLocalMessage(4.5, playerid, COLOR_FADE1,COLOR_FADE1,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3, "... %s", params[MAXLEN]);
+			SendPhoneMessageEx(pTemp[playerid][pCallLine], COLOR_YELLOWG, "... %s", params[MAXLEN]);
    		}
      	else
       	{
-			SendLocalMessage(Range_VShort, playerid,COLOR_FADE1,COLOR_FADE1,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3, "%s (kýsýk ses): %.*s ...", GetNameWithMask(playerid), MAXLEN, params);
-			SendLocalMessage(Range_VShort, playerid,COLOR_FADE1,COLOR_FADE1,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3, "... %s", params[MAXLEN]);
+			SendLocalMessage(4.5, playerid,COLOR_FADE1,COLOR_FADE1,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3, "%s (kýsýk ses): %.*s ...", GetNameWithMask(playerid), MAXLEN, params);
+			SendLocalMessage(4.5, playerid,COLOR_FADE1,COLOR_FADE1,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3, "... %s", params[MAXLEN]);
 		}
 	}
 
@@ -468,12 +468,12 @@ CMD:low(playerid,params[])
 	{
 	    if (pTemp[playerid][pCallLine] != INVALID_PLAYER_ID && pTemp[playerid][pCallStatus] == 2) 
      	{
-			SendLocalMessage(Range_VShort, playerid, COLOR_FADE1,COLOR_FADE2,COLOR_FADE3,COLOR_FADE4,COLOR_FADE5, "%s kýsýk ses (telefon): %s", GetNameWithMask(playerid), params);
-            SendClientMessageEx(pTemp[playerid][pCallLine], COLOR_YELLOWG, "%s kýsýk ses (telefon): %s", GetNameWithMask(playerid), params);
+			SendLocalMessage(4.5, playerid, COLOR_FADE1,COLOR_FADE2,COLOR_FADE3,COLOR_FADE4,COLOR_FADE5, "%s kýsýk ses (telefon): %s", GetNameWithMask(playerid), params);
+            SendPhoneMessageEx(pTemp[playerid][pCallLine], COLOR_YELLOWG, "%s kýsýk ses (telefon): %s", GetNameWithMask(playerid), params);
 	   	}
      	else
 		{
-			SendLocalMessage(Range_VShort, playerid, COLOR_FADE1,COLOR_FADE2,COLOR_FADE3,COLOR_FADE4,COLOR_FADE5, "%s (kýsýk ses): %s", GetNameWithMask(playerid), params);
+			SendLocalMessage(4.5, playerid, COLOR_FADE1,COLOR_FADE2,COLOR_FADE3,COLOR_FADE4,COLOR_FADE5, "%s (kýsýk ses): %s", GetNameWithMask(playerid), params);
 		}
 	}
 	Log_Kaydet("loglar/roleplay.txt", sprintf("[%s] %s (C_ID: %d | A_ID: %d) kýsýk sesle konuþtu: %s", GetFullDate(), GetNameEx(playerid), PlayerInfo[playerid][pID], PlayerInfo[playerid][pAccID], params));

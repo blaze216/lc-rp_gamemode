@@ -118,14 +118,14 @@ this::BizCheckOwner(bizid, dbid)
 	cache_get_value_int(0, "cash", money);
 	cache_get_value_int(0, "last_login", last_login);		
 
-	if (last_login < gettime()-(60*60*24)*21) {
-		mysql_format(dbHandle, query, sizeof(query), "UPDATE `users` SET `cash`=%i WHERE id=%i LIMIT 1", money+floatround(BizInfo[bizid][bizPrice]/2)/*+GetFurniturePrice(1, i)*/+BizInfo[bizid][bizCash], BizInfo[bizid][bizOwnerID]);		
-		mysql_query(dbHandle, query);
-
+	//if (last_login < gettime()-(60*60*24)*21) {
+		//mysql_format(dbHandle, query, sizeof(query), "UPDATE `users` SET `cash`=%i WHERE id=%i LIMIT 1", money+floatround(BizInfo[bizid][bizPrice]/2)/*+GetFurniturePrice(1, i)*/+BizInfo[bizid][bizCash], BizInfo[bizid][bizOwnerID]);		
+		//mysql_query(dbHandle, query);
+/*
 		format(query, sizeof(query), "Business sold out automatically [B_MYSQL: %i] player %s [MYSQL: %i]", BizInfo[bizid][bizID], BizInfo[bizid][bizOwner], BizInfo[bizid][bizOwnerID]);
 		insert_log(query, PROPERTY_LOG, 8, accountid);
 		Sell_Business(bizid);
-	}
+	}*/
 	return 1;
 }
 

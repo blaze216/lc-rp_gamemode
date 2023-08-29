@@ -119,6 +119,25 @@ Dialog:BusinessMenu(playerid, response, listitem, inputtext[])
 	return 1;
 }
 
+Dialog:SellPawn(playerid, response, listitem, inputtext[])
+{
+	if (!response) return 0;
+    
+	switch(listitem)
+	{
+		case 0:
+		{
+			if(!PlayerInfo[playerid][pCalintiRadyo]) return SendErrorMessage(playerid, "Üzerinizde çalýntý radyo bulunmuyor.");
+
+			PlayerInfo[playerid][pCalintiRadyo] = 0;
+			SendServerMessage(playerid, "Pawnshop dükkaný, $%d karþýlýðýnda çalýntý radyoyu senden satýn aldý.", PRICE_RADIO);
+			GiveCash(playerid, PRICE_RADIO);
+		}
+	}
+
+	return 1;
+}
+
 Dialog:SellBiz(playerid, response, listitem, inputtext[])
 {
 	if (!response) return pc_cmd_mekanmenu(playerid, "");
@@ -877,6 +896,19 @@ Dialog:StoreDialog(playerid, response, listitem, inputtext[])
 		}
 
 		SendSyntaxMessage(playerid, "$%i ödeyerek %s adlý içeceði aldýnýz.", name_drink[listitem], BizInfo[bizid][bizProductPrice][listitem]);
+	}
+	else if (BizInfo[bizid][bizType] == BIZ_PAWN)
+	{
+		switch(listitem)
+		{
+            case 0:
+            {
+                if (PlayerInfo[playerid][pBurnerTelefon]) return SendErrorMessage(playerid, "Zaten bir burner telefona sahipsin.");
+
+                SendServerMessage(playerid, "Tek kullanýmlýk olan burner telefonu satýn aldýnýz.");
+			    PlayerInfo[playerid][pBurnerTelefon] = 1;
+            }
+		}
 	}
 	else if (BizInfo[bizid][bizType] == BIZ_PHARMACY)
 	{
