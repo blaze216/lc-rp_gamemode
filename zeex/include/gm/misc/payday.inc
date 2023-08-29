@@ -9,7 +9,7 @@ PayDay(i)
 	if(ServerInfo[sDoublePayday]) checks = ServerInfo[sPricePayday] * 2;
 	else checks = ServerInfo[sPricePayday];
 
-	if (IsFactionLegal(faction)) checks += 200 + (PlayerInfo[i][pRank] * 60);  
+	if (IsFactionLegal(faction)) checks += 150 + (PlayerInfo[i][pRank] * 50);  
 
 	if (PlayerInfo[i][pJob] == JOB_MECHANIC)		checks += 100;	
 	else if (PlayerInfo[i][pJob] == JOB_TAXI) 	checks += 100;
