@@ -14,7 +14,7 @@ PayDay(i)
 	if (PlayerInfo[i][pJob] == JOB_MECHANIC)		checks += 100;	
 	else if (PlayerInfo[i][pJob] == JOB_TAXI) 	checks += 100;
 	
-	if (PlayerInfo[i][pSavings] >= 50000 && PlayerInfo[i][pSavings] < 500000) savings = PlayerInfo[i][pSavings]*MEVDUAT_FAIZ_ORAN/100;
+	if (PlayerInfo[i][pSavings] >= 50000 && PlayerInfo[i][pSavings] < 300000) savings = PlayerInfo[i][pSavings]*MEVDUAT_FAIZ_ORAN/100;
     PlayerInfo[i][pSavings] += savings;
 
 	if (PlayerInfo[i][pBank] < 0)

@@ -129,10 +129,21 @@ Dialog:SellPawn(playerid, response, listitem, inputtext[])
 		{
 			if(!PlayerInfo[playerid][pCalintiRadyo]) return SendErrorMessage(playerid, "Üzerinizde çalýntý radyo bulunmuyor.");
 
+            new adet = PlayerInfo[playerid][pCalintiRadyo];
+			SendServerMessage(playerid, "Pawnshop dükkanýna $%d karþýlýðýnda %d adet çalýntý radyo sattýnýz.", PRICE_RADIO * adet, adet);
+			GiveCash(playerid, PRICE_RADIO * adet);
+
 			PlayerInfo[playerid][pCalintiRadyo] = 0;
-			SendServerMessage(playerid, "Pawnshop dükkaný, $%d karþýlýðýnda çalýntý radyoyu senden satýn aldý.", PRICE_RADIO);
-			GiveCash(playerid, PRICE_RADIO);
 		}
+		case 1:
+		{
+			if(!PlayerInfo[playerid][pCalintiEvEsya]) return SendErrorMessage(playerid, "Üzerinizde çalýntý ev eþyasý bulunmuyor.");
+            
+			new adet = PlayerInfo[playerid][pCalintiEvEsya];
+			SendServerMessage(playerid, "Pawnshop dükkanýna $%d karþýlýðýnda %d adet çalýntý eþya sattýnýz.", PRICE_EVHIRSIZLIK * adet, adet);
+			GiveCash(playerid, PRICE_EVHIRSIZLIK * adet);
+			PlayerInfo[playerid][pCalintiEvEsya] = 0;
+		}		
 	}
 
 	return 1;

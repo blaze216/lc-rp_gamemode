@@ -525,6 +525,7 @@ CMD:evkilitkir(playerid, params[])
 	if (houseid == -1)						 		  return SendErrorMessage(playerid, "Evin giriþine yakýn olmalýsýnýz.");
 	if (!IsPlayerOutsideHouse(playerid, houseid, 3.0)) return SendErrorMessage(playerid,"Evin giriþine yakýn olmalýsýnýz.");
 	if (HouseInfo[houseid][hOwnerID] == 0)   		  return SendErrorMessage(playerid,"Yalnýzca satýn alýnan evlerde hýrsýzlýk yapýlabilir.");
+	if (HouseInfo[houseid][hOwnerID] == PlayerInfo[playerid][pID])   		  return SendErrorMessage(playerid,"Kendi evinizde hýrsýzlýk yapamazsýnýz.");
 	if (HouseInfo[houseid][hLocked] == 0)   		  return SendErrorMessage(playerid,"Bu evin kapýsý kilitli deðil.");
 	if (JackingLock[playerid] != 0)         		  return SendErrorMessage(playerid, "Kapý kilidini kýrarken tekrar ayný iþlemi yapamazsýnýz.");
 	if (IsPlayerCrouching(playerid) == false) 		  return SendErrorMessage(playerid, "Eðilmek zorundasýn.");
@@ -543,8 +544,6 @@ CMD:evkilitkir(playerid, params[])
 
 	if (CompareStrings(param, "sessiz"))
 	{
-		if (!IsPlayerHasItem(playerid, INV_PICKLOCK)) return SendErrorMessage(playerid, "Maymuncuðunuz olmalý.");
-
 		pTemp[playerid][JackingType] = 3;
 		BreakingHouse[playerid] = houseid;
 
@@ -556,7 +555,7 @@ CMD:evkilitkir(playerid, params[])
 			case 2: htime = 250+HouseInfo[houseid][hLock]*250 + floatround((250+HouseInfo[houseid][hLock]*250) * 0.15);
 		}
 
-		static const str_size[] = "{"COL_GREY"}Evin kapýsýný kýrmaya baþlamak ister misiniz? %i saniye sürecek";
+		static const str_size[] = "{"COL_GREY"}Evin kapýsýný kýrmaya baþlamak ister misiniz? [%s] %i saniye sürecek";
 		new mes[sizeof(str_size) + 6 + 70];
 		format(mes, sizeof(mes), str_size, (!HouseInfo[houseid][hApart])?(GetHouseZone(houseid)):(GetApartmentZone(HouseInfo[houseid][hApart])), htime);
         Dialog_Show(playerid, StartBreakingLock, DIALOG_STYLE_MSGBOX, "{FFFFFF}Kapý Kýr", mes, "Baþla", "Ýptal");
@@ -575,7 +574,7 @@ CMD:evkilitkir(playerid, params[])
 			case 2: htime = floatround((250+HouseInfo[houseid][hLock]*250 + floatround((250+HouseInfo[houseid][hLock]*250) * 0.15))*0.6);
 		}
 
-		static const str_size[] = "{"COL_GREY"}Evin kapýsýný kýrmaya baþlamak ister misin? [%s, %i] %i saniye sürecek";
+		static const str_size[] = "{"COL_GREY"}Evin kapýsýný kýrmaya baþlamak ister misin? [%s] %i saniye sürecek";
 		new mes[sizeof(str_size) + 76];
 		format(mes, sizeof(mes), str_size, (!HouseInfo[houseid][hApart])?(GetHouseZone(houseid)):(GetApartmentZone(HouseInfo[houseid][hApart])), htime);
         Dialog_Show(playerid, StartBreakingLock, DIALOG_STYLE_MSGBOX, "{FFFFFF}Kapý Kýr", mes, "Baþla", "Ýptal");
@@ -583,6 +582,75 @@ CMD:evkilitkir(playerid, params[])
 		SendHelpMessage(playerid, "/evkilitkir");
 		SendSyntaxMessage(playerid, "sessiz - maymuncukla evin kilidini sessizce açmak (yavaþ)");
 		SendSyntaxMessage(playerid, "sesli - levye ile evin yüksek sesle soyulmasý, alarm var ise devreye girer. (hýzlý)");
+		return 1;
+	}
+
+	return 1;
+}
+
+alias:soygun("evsoygun");
+CMD:soygun(playerid, params[])
+{
+	if (!PoliceOnline())	return SendErrorMessage(playerid, "Oyunda aktif en az %i polis olmalýdýr.", NEED_COPS_TO_CRIME);
+
+	new houseid = GetNearHouse(playerid);
+	if (houseid == -1)						 		  return SendErrorMessage(playerid, "Evin giriþine yakýn olmalýsýnýz.");
+	if (!IsPlayerInsideHouse(playerid, houseid, 50.0)) return SendErrorMessage(playerid,"Evin giriþine yakýn olmalýsýnýz.");
+	if (HouseInfo[houseid][hOwnerID] == 0)   		  return SendErrorMessage(playerid,"Yalnýzca sahibi olan evlerde hýrsýzlýk yapýlabilir.");
+	if (JackingLock[playerid] != 0)         		  return SendErrorMessage(playerid, "Soygun iþlemine zaten baþlamýþsýnýz.");
+
+	foreach(new i : Player) {
+		if (StealingHouse[i] == houseid) return SendErrorMessage(playerid, "Baþka birisi bu evi soyuyor.");
+	}
+
+	new param[18];
+	if (sscanf(params, "s[18]", param)) {
+		SendHelpMessage(playerid, "/soygun (parametre)");
+		SendSyntaxMessage(playerid, "sessiz - maymuncukla kasayý teknik bir þekilde açmak (yavaþ)");
+		SendSyntaxMessage(playerid, "sesli - levye ile eþyalarý paramparça ederek hýzlýca araþtýr. (hýzlý)");
+		return 1;
+	}
+
+	if (CompareStrings(param, "sessiz"))
+	{
+		pTemp[playerid][JackingType] = 5;
+		StealingHouse[playerid] = houseid;
+
+		new htime;
+
+		switch(HouseInfo[houseid][hDoor]) {
+			case 0: htime = 250+HouseInfo[houseid][hLock]*250;
+			case 1: htime = 250+HouseInfo[houseid][hLock]*250 + floatround((250+HouseInfo[houseid][hLock]*250) * 0.05);
+			case 2: htime = 250+HouseInfo[houseid][hLock]*250 + floatround((250+HouseInfo[houseid][hLock]*250) * 0.15);
+		}
+
+		static const str_size[] = "{"COL_GREY"}Ev soygununa baþlamak ister misin? [%s] %i saniye sürecek";
+		new mes[sizeof(str_size) + 6 + 70];
+		format(mes, sizeof(mes), str_size, (!HouseInfo[houseid][hApart])?(GetHouseZone(houseid)):(GetApartmentZone(HouseInfo[houseid][hApart])), htime);
+        Dialog_Show(playerid, StartStealingHouse, DIALOG_STYLE_MSGBOX, "{FFFFFF}Ev Soygunu", mes, "Baþla", "Ýptal");
+	}
+	else if (CompareStrings(param, "sesli"))
+	{
+		if (!CheckHanditem(playerid,18634)) return SendErrorMessage(playerid, "Elinizde bir levye olmalý. (/aksesuar)");
+		pTemp[playerid][JackingType] = 6;
+		StealingHouse[playerid] = houseid;
+
+		new htime;
+
+		switch(HouseInfo[houseid][hDoor]) {
+			case 0: htime = floatround((250+HouseInfo[houseid][hLock]*250)*0.6);
+			case 1: htime = floatround((250+HouseInfo[houseid][hLock]*250 + floatround((250+HouseInfo[houseid][hLock]*250) * 0.05))*0.6);
+			case 2: htime = floatround((250+HouseInfo[houseid][hLock]*250 + floatround((250+HouseInfo[houseid][hLock]*250) * 0.15))*0.6);
+		}
+
+		static const str_size[] = "{"COL_GREY"}Ev soygununa baþlamak ister misin? [%s] %i saniye sürecek";
+		new mes[sizeof(str_size) + 76];
+		format(mes, sizeof(mes), str_size, (!HouseInfo[houseid][hApart])?(GetHouseZone(houseid)):(GetApartmentZone(HouseInfo[houseid][hApart])), htime);
+        Dialog_Show(playerid, StartStealingHouse, DIALOG_STYLE_MSGBOX, "{FFFFFF}Ev Soygunu", mes, "Baþla", "Ýptal");
+	} else {
+		SendHelpMessage(playerid, "/soygun (parametre)");
+		SendSyntaxMessage(playerid, "sessiz - maymuncukla kasayý teknik bir þekilde açmak (yavaþ)");
+		SendSyntaxMessage(playerid, "sesli - levye ile eþyalarý paramparça ederek hýzlýca araþtýr. (hýzlý)");
 		return 1;
 	}
 

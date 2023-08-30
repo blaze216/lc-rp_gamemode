@@ -157,7 +157,9 @@ enum PLAYER_DATA_ENUM
 	pBenzinBidonu,
 	pTelsiz,
 	pCalintiRadyo,
+	pCalintiEvEsya,
 	pBurnerTelefon,
+	SafeObject[2],
 
 	pScriptedGun[12],
 	pScriptedAmmo[12],

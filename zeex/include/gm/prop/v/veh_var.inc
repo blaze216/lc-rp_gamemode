@@ -101,6 +101,8 @@ new JackingEngine[MAX_PLAYERS];
 new JackingLock[MAX_PLAYERS];
 new JackingVehicle[MAX_PLAYERS];
 new BreakingHouse[MAX_PLAYERS];
+new StealingHouse[MAX_PLAYERS];
+
 
 new max_vehicle_components[8] = {17, 20, 4, 17, 21, 29, 23, 22};
 

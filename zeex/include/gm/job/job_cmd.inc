@@ -289,10 +289,10 @@ CMD:radyocal(playerid, params[])
     if (!vehicle || !IsDriver(playerid))				return SendErrorMessage(playerid, "Sürücü koltuðunun arkasýna oturmanýz gerekir.");
 	if (!VehicleInfo[vehicle][carOwnerID])				return SendErrorMessage(playerid, "Sadece kiþisel araçlarýn teybini çalabilirsiniz. ");
     if (!VehicleInfo[vehicle][carRadio])				return SendErrorMessage(playerid, "Bu araçta teyp bulunmamakta.");
-    if (PlayerInfo[playerid][pCalintiRadyo])		return SendErrorMessage(playerid, "Envanterinizde zaten bir teyp mevcut.");
+    if (PlayerInfo[playerid][pCalintiRadyo] == 5)		return SendErrorMessage(playerid, "Maksimum 5 adet çalýntý radyo taþýyabilirsin.");
     
 	VehicleInfo[vehicle][carRadio] = 0;
-	PlayerInfo[playerid][pCalintiRadyo] = 1;
+	PlayerInfo[playerid][pCalintiRadyo]++;
 	
 	new mes[128];
 	format(mes, sizeof(mes), "%s model aracýn radyosunu çalar.", VehicleNames[GetVehicleModel(vehicle)-400]);

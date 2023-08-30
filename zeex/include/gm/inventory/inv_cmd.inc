@@ -11,10 +11,12 @@ CMD:envanter(playerid, params[])
     SendClientMessageEx(playerid, COLOR_SERVER2, "Envanter:{FFFFFF} Maske: [%s], Çakmak: [%s], Sigara: [%d dal], Kalem: [%s], Boombox: [%s], Burner Tel.: [%s]", (PlayerInfo[playerid][pMaske] ? "Var" : "Yok"), (PlayerInfo[playerid][pCakmak] ? "Var" : "Yok"),
 	PlayerInfo[playerid][pSigara], (PlayerInfo[playerid][pKalem] ? "Var" : "Yok"), (PlayerInfo[playerid][pBoombox] ? "Var" : "Yok"), (PlayerInfo[playerid][pBurnerTelefon] ? "Var" : "Yok"));
 
-    SendClientMessageEx(playerid, COLOR_SERVER2, "Envanter:{FFFFFF} Telsiz: [%s], Zar: [%s], Oyun Kartý: [%s], Bidon: [%s], Çalýntý Radyo: [%s]", (PlayerInfo[playerid][pTelsiz] ? "Var" : "Yok"), (PlayerInfo[playerid][pZar] ? "Var" : "Yok"),
-	(PlayerInfo[playerid][pOyunKarti] ? "Var" : "Yok"), (PlayerInfo[playerid][pBenzinBidonu] ? "Var" : "Yok"), (PlayerInfo[playerid][pCalintiRadyo] ? "Var" : "Yok"));	
+    SendClientMessageEx(playerid, COLOR_SERVER2, "Envanter:{FFFFFF} Telsiz: [%s], Zar: [%s], Oyun Kartý: [%s], Bidon: [%s], Çalýntý Radyo: [%d adet]", (PlayerInfo[playerid][pTelsiz] ? "Var" : "Yok"), (PlayerInfo[playerid][pZar] ? "Var" : "Yok"),
+	(PlayerInfo[playerid][pOyunKarti] ? "Var" : "Yok"), (PlayerInfo[playerid][pBenzinBidonu] ? "Var" : "Yok"), PlayerInfo[playerid][pCalintiRadyo]);
 
-    SendClientMessageEx(playerid, COLOR_SERVER2, "Envanter:{FFFFFF} Kullaným yollarý için /envanteryardim yazýnýz.");		
+	if (IllegalOlusumUyesi(playerid))  SendClientMessageEx(playerid, COLOR_SERVER2, "Envanter:{FFFFFF} Çalýntý Ev Malzemeleri: [%d adet]", PlayerInfo[playerid][pCalintiEvEsya]);	
+
+    SendClientMessageEx(playerid, COLOR_SERVER2, "Bilgi:{FFFFFF} Kullaným yollarý için /envanteryardim yazýnýz.");		
 /*
 	new	
 		count,

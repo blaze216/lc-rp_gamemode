@@ -49,14 +49,15 @@ CMD:tasimacilik(playerid, params[])
 	return 1;
 }
 
+alias:koli("cuval");
 CMD:koli(playerid, params[])
 {
 	if (PlayerInfo[playerid][pInjured] != 0 || GetPVarInt(playerid, "Freeze") || pTemp[playerid][pTaserTime] || pTemp[playerid][pCuffed] || PlayerInfo[playerid][pJailed] != 0)
 		return SendErrorMessage(playerid, "Bu iþlemi þu an kullanamazsýnýz.");
 
-	if (!pTemp[playerid][pTruckerOn])								return SendErrorMessage(playerid, "Þu an teslimat sürecinde deðilsiniz. (/tasimacilik)");
+	if (!pTemp[playerid][pTruckerOn])								return SendErrorMessage(playerid, "Þu an teslimat sürecinde deðilsiniz veya elinizde koli yok. (/tasimacilik)");
 	if (IsPlayerInAnyVehicle(playerid))                             return SendWarningMessage(playerid, "Araçta bu iþlemi yapamazsýn.");      
-    if (IsPlayerAttachedObjectSlotUsed(playerid, ATTACH_HANDS))		return SendWarningMessage(playerid, "Elleriniz zaten dolu.");
+    if (IsPlayerAttachedObjectSlotUsed(playerid, ATTACH_HANDS))		return RemovePlayerAttachedObject(playerid, ATTACH_HANDS), SendServerMessage(playerid, "Koliyi/çuvalý araca býraktýnýz.");
 
 	new vehicle;    
     if ((vehicle = Arac_Yakin(playerid, 5.0)) == -1 || !GetAvailableTruck(playerid, GetVehicleModel(vehicle)))	return SendErrorMessage(playerid, "Kamyonun yanýnda olmalýsýnýz.");

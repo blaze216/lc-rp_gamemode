@@ -952,6 +952,21 @@ stock HouseAlarm(houseid, bool:toggle)
 	return 1;
 }
 
+StopStealing(playerid)
+{
+	JackingLock[playerid] = 0;
+	BreakingHouse[playerid] = 0;
+	pTemp[playerid][JackingType] = 0;
+	pTemp[playerid][JackingWarnings] = 0;
+
+	for(new i; i < 2; i++) if(IsValidDynamicObject(PlayerInfo[playerid][SafeObject][i])) DestroyDynamicObject(PlayerInfo[playerid][SafeObject][i]);
+	PlayerInfo[playerid][SafeObject][0] = PlayerInfo[playerid][SafeObject][1] = INVALID_OBJECT_ID;
+
+	InfoMSG(playerid, "EV SOYGUNUNU ~r~BASARAMADINIZ!", 3);
+
+	return 1;
+}
+
 StopBreakingLock(playerid)
 {
 	JackingLock[playerid] = 0;

@@ -656,6 +656,9 @@ ResetPlayerVariables(playerid)
 	pTemp[playerid][pAdvertTime] = 0;
 	pTemp[playerid][pDebugMode] = 0;
 
+    // Hýrsýzlýk
+	PlayerInfo[playerid][SafeObject][0] = PlayerInfo[playerid][SafeObject][1] = 0;
+
 	// Uyuþturucu Baðýmlýlýðý
 	PlayerInfo[playerid][pBagimlilikEXP] = PlayerInfo[playerid][pBagimlilikSeviye] = PlayerInfo[playerid][pUTedaviEXP] = PlayerInfo[playerid][pUTedaviSure] = PlayerInfo[playerid][pKrizSure] = PlayerInfo[playerid][UyusKullan] = 0;	
 
@@ -712,7 +715,7 @@ ResetPlayerVariables(playerid)
     pTemp[playerid][pRentveh] = 0;
 	PlayerInfo[playerid][pCarKey] = 0;
 
-	PlayerInfo[playerid][pCicek] = PlayerInfo[playerid][pKamera] = PlayerInfo[playerid][pBoombox] = PlayerInfo[playerid][pBurnerTelefon] = PlayerInfo[playerid][pMaske] = PlayerInfo[playerid][pSigara] = 0;
+	PlayerInfo[playerid][pCicek] = PlayerInfo[playerid][pKamera] = PlayerInfo[playerid][pBoombox] = PlayerInfo[playerid][pCalintiEvEsya] = PlayerInfo[playerid][pBurnerTelefon] = PlayerInfo[playerid][pMaske] = PlayerInfo[playerid][pSigara] = 0;
 	PlayerInfo[playerid][pKalem] = PlayerInfo[playerid][pTelsiz] = PlayerInfo[playerid][pBenzinBidonu] = PlayerInfo[playerid][pCalintiRadyo] = PlayerInfo[playerid][pZar] = PlayerInfo[playerid][pCakmak] = 0;
 
     pTemp[playerid][AntiHileSistemi] = -1;
@@ -1290,7 +1293,8 @@ Save_User(playerid)
 	);
 	mysql_tquery(dbHandle, query);
 
-   	mysql_format(dbHandle, query, sizeof(query), "UPDATE `users` SET calintiradyo = %d, burnertelefon = %d, zar = %d, oyunkarti = %d, benzinbidonu = %d, telsiz = %d, kalem = %d, sigara = %d, cakmak = %d, bagimlilik_exp = '%d', bagimlilik_seviye = '%d', tedavi_exp = '%d', tedavi_sure = '%d', kriz_sure = '%d' WHERE `id`=%i",
+   	mysql_format(dbHandle, query, sizeof(query), "UPDATE `users` SET calintievesya = %d, calintiradyo = %d, burnertelefon = %d, zar = %d, oyunkarti = %d, benzinbidonu = %d, telsiz = %d, kalem = %d, sigara = %d, cakmak = %d, bagimlilik_exp = '%d', bagimlilik_seviye = '%d', tedavi_exp = '%d', tedavi_sure = '%d', kriz_sure = '%d' WHERE `id`=%i",
+		PlayerInfo[playerid][pCalintiEvEsya],
 		PlayerInfo[playerid][pCalintiRadyo],
 		PlayerInfo[playerid][pBurnerTelefon],
 		PlayerInfo[playerid][pZar], PlayerInfo[playerid][pOyunKarti], PlayerInfo[playerid][pBenzinBidonu], 
@@ -2377,6 +2381,17 @@ stock AntiCheatGetHealth(playerid, &Float:health)
 stock ClearTextInventory(playerid)
 {
 	PlayerInfo[playerid][pCicek] = PlayerInfo[playerid][pKamera] = PlayerInfo[playerid][pBoombox] = PlayerInfo[playerid][pBurnerTelefon] = PlayerInfo[playerid][pMaske] = PlayerInfo[playerid][pSigara] = 0;
-	PlayerInfo[playerid][pKalem] = PlayerInfo[playerid][pTelsiz] = PlayerInfo[playerid][pCalintiRadyo] = PlayerInfo[playerid][pBenzinBidonu] = PlayerInfo[playerid][pZar] = PlayerInfo[playerid][pCakmak] = 0;
+	PlayerInfo[playerid][pKalem] = PlayerInfo[playerid][pTelsiz] = PlayerInfo[playerid][pCalintiRadyo] = PlayerInfo[playerid][pCalintiEvEsya] = PlayerInfo[playerid][pBenzinBidonu] = PlayerInfo[playerid][pZar] = PlayerInfo[playerid][pCakmak] = 0;
     return 1;
+}
+
+stock IllegalOlusumUyesi(playerid)
+{
+	if(PlayerInfo[playerid][pFaction] == 0) return 0;
+
+	switch(OlusumTipGetir(PlayerInfo[playerid][pFaction]))
+	{
+		case FACTION_GANG, FACTION_MAFIA: return 1;
+	}
+	return 0;
 }

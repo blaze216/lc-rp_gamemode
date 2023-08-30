@@ -36,4 +36,4 @@
 #define UPGRADE_PRICE_DOOR      (1500)
 
 #define PRICE_RADIO            (500)
-#define PRICE_EVHIRSIZLIK      (200)
+#define PRICE_EVHIRSIZLIK      (500)

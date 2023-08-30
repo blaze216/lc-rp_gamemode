@@ -555,7 +555,6 @@ Dialog:StartBreakingLock(playerid, response, listitem, inputtext[])
 	if (IsPlayerCrouching(playerid) == false)		  return SendErrorMessage(playerid, "Eðilmek zorundasýn.");
  
 	if (pTemp[playerid][JackingType] == 3) {
-		if (!IsPlayerHasItem(playerid, INV_PICKLOCK)) return SendErrorMessage(playerid, "Aracýn kilidini kýrmak için maymuncuða ihtiyacýnýz var.");
 		
 		new htime;
 		
@@ -566,10 +565,9 @@ Dialog:StartBreakingLock(playerid, response, listitem, inputtext[])
 		}
 
 		JackingLock[playerid] = htime;	
-		RemovePlayerItem(playerid, INV_PICKLOCK, 1);
 
 	} else if (pTemp[playerid][JackingType] == 4) {
-		if (!CheckHanditem(playerid,18634)) return SendErrorMessage(playerid, "Elinizde bir levye olmalý.");
+		if (!CheckHanditem(playerid,18634)) return SendErrorMessage(playerid, "Elinizde bir levye olmalý. /aksesuar");
 		PlaySound(playerid, 1138);
 		HouseAlarm(houseid, true);
 
@@ -587,5 +585,65 @@ Dialog:StartBreakingLock(playerid, response, listitem, inputtext[])
 	
 	BreakingHouse[playerid] = houseid;
 	pc_cmd_me(playerid, "bir þey çýkartýr ve ön kapýnýn kilidiyle oynamaya baþlar.");
+	return 1;
+}
+
+Dialog:StartStealingHouse(playerid, response, listitem, inputtext[])
+{
+	new houseid = StealingHouse[playerid];
+    
+	StealingHouse[playerid] = 0;
+	
+	if (!response)									  return 1;
+	if (!IsPlayerInsideHouse(playerid, houseid, 50.0)) return SendErrorMessage(playerid, "Evin giriþine yakýn olmalýsýnýz.");
+	if (HouseInfo[houseid][hOwnerID] == 0)   		  return SendErrorMessage(playerid, "Yalnýzca satýn alýnan evlerde hýrsýzlýk yapýlabilir.");
+ 
+	if (pTemp[playerid][JackingType] == 5) {	
+		new htime;
+		
+		switch(HouseInfo[houseid][hDoor]) {
+			case 0: htime = 250+HouseInfo[houseid][hLock]*250;
+			case 1: htime = 250+HouseInfo[houseid][hLock]*250 + floatround((250+HouseInfo[houseid][hLock]*250) * 0.05);
+			case 2: htime = 250+HouseInfo[houseid][hLock]*250 + floatround((250+HouseInfo[houseid][hLock]*250) * 0.15);
+		}
+
+		JackingLock[playerid] = htime;	
+
+	} else if (pTemp[playerid][JackingType] == 6) {
+		if (!CheckHanditem(playerid,18634)) return SendErrorMessage(playerid, "Elinizde bir levye olmalý. /aksesuar");
+		PlaySound(playerid, 1138);
+		HouseAlarm(houseid, true);
+
+
+        ApplyAnimation(playerid, "COP_AMBIENT", "COPBROWSE_LOOP", 4.0, 1, 0, 0, 0, 0);
+	    new Float: x, Float: y, Float: z, Float: a;
+		GetPlayerPos(playerid, x, y, z);
+		GetPlayerFacingAngle(playerid, a);
+			
+		x += (1.25 * floatsin(-a, degrees));
+		y += (1.25 * floatcos(-a, degrees));
+		PlayerInfo[playerid][SafeObject][0] = CreateDynamicObject(19618, x, y, z-0.55, 0.0, 0.0, a, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+
+        a += 90.0;
+		x += (0.42 * floatsin(-a, degrees)) + (-0.22 * floatsin(-(a - 90.0), degrees));
+		y += (0.42 * floatcos(-a, degrees)) + (-0.22 * floatcos(-(a - 90.0), degrees));
+		PlayerInfo[playerid][SafeObject][1] = CreateDynamicObject(19619, x, y, z-0.55, 0.0, 0.0, a + 270.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+					
+        Streamer_Update(playerid);
+
+		new htime;
+		
+		switch(HouseInfo[houseid][hDoor]) {
+			case 0: htime = 250+HouseInfo[houseid][hLock]*250;
+			case 1: htime = 250+HouseInfo[houseid][hLock]*250 + floatround((250+HouseInfo[houseid][hLock]*250) * 0.05);
+			case 2: htime = 250+HouseInfo[houseid][hLock]*250 + floatround((250+HouseInfo[houseid][hLock]*250) * 0.15);
+		}
+
+		JackingLock[playerid] = htime;	
+
+	} else return 1;
+	
+	StealingHouse[playerid] = houseid;
+	pc_cmd_me(playerid, "levye ile evde bulunan kasayý parçalamaya baþlar.");
 	return 1;
 }

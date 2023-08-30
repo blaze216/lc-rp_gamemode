@@ -795,10 +795,19 @@ this::PlayerTimer()
 					return pTemp[i][JackingWarnings]++;
 				}
 			}
+                else if (pTemp[i][JackingType] == 5 || pTemp[i][JackingType] == 6) {
+				if (pTemp[i][JackingWarnings] >= 5)				 		  return StopStealing(i);
+				if (pTemp[i][JackingType] == 6 && !CheckHanditem(i,18634)) return StopStealing(i);
+
+				if (!IsPlayerInsideHouse(i, StealingHouse[i], 50.0)) {
+					InfoMSG(i, "COK ~r~UZAKSIN~w~, GERI DON!", 3);
+					return pTemp[i][JackingWarnings]++;
+				}
+			}			
 			else return 1;
 
-			if (IsPlayerCrouching(i) == false){
-				InfoMSG(i, "~r~OTURMAK~w~ ZORUNDASIN!", 2);
+			if (IsPlayerCrouching(i) == false && pTemp[i][JackingType] != 5 && pTemp[i][JackingType] != 6){
+				InfoMSG(i, "~r~EGILMEK~w~ ZORUNDASIN!", 2);
 				return pTemp[i][JackingWarnings]++;
 			}
 
@@ -807,8 +816,9 @@ this::PlayerTimer()
 				pTemp[i][JackingWarnings] = 0;
 				JackingLock[i]--;
 
-				if (pTemp[i][JackingType] == 2 || pTemp[i][JackingType])		   format(string, sizeof(string), "ARAC KAPISINI KIRIYORSUNUZ ~y~%i~w~ SANIYE", JackingLock[i]);
+				if (pTemp[i][JackingType] == 2 || pTemp[i][JackingType] == 1)		   format(string, sizeof(string), "ARAC KAPISINI KIRIYORSUNUZ ~y~%i~w~ SANIYE", JackingLock[i]);
 				else if (pTemp[i][JackingType] == 3 || pTemp[i][JackingType] == 4) format(string, sizeof(string), "EV KAPISINI KIRIYORSUNUZ ~y~%i~w~ SANIYE", JackingLock[i]);
+				else if (pTemp[i][JackingType] == 5 || pTemp[i][JackingType] == 6) format(string, sizeof(string), "SOYGUN YAPILIYOR ~y~%i~w~ SANIYE", JackingLock[i]);
 				InfoMSG(i, string, 2);
 			}
 		}
@@ -825,7 +835,27 @@ this::PlayerTimer()
 
 					StopJackingLock(i, 0);
 				}
-			} else {
+			}
+			else if (pTemp[i][JackingType] == 5 || pTemp[i][JackingType] == 6)
+			{
+				PlaySound(i, 1145);
+				InfoMSG(i, "EV SOYGUNU ~g~SONA ERDI~w~!", 3);
+				SendServerMessage(i, "Ev soygunu tamamlandý. Çuvalý araca /cuval ile býrakýn. Envanterinize eþyalar eklendi.");
+				SendServerMessage(i, "Çalýntý ev eþyalarýný pawnshop aracýlýðýyla satabilirsin. (/gps)");
+				HouseAlarm(StealingHouse[i], true);
+
+				PlayerInfo[i][pCalintiEvEsya]++;
+
+				pc_cmd_liftup(i, "");
+                SetPlayerAttachedObject(i, ATTACH_HANDS, 2060, 5, 0.002953, 0.469660, -0.009797, 269.851104, 88.443557, 0.000000, 0.804894, 1.000000, 0.822361);
+  	            SetPlayerSpecialAction(i, SPECIAL_ACTION_CARRY);
+
+				JackingLock[i] = 0;
+				StealingHouse[i] = 0;
+				pTemp[i][JackingType] = 0;
+				pTemp[i][JackingWarnings] = 0;				
+			} 
+			else {
 				HouseInfo[BreakingHouse[i]][hLocked] = 0;
 				PlaySound(i, 1145);
 				InfoMSG(i, "EV KAPISI ~g~KIRILDI~w~!", 3);

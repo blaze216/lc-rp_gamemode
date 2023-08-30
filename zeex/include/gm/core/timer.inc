@@ -262,6 +262,7 @@ OtherTimer()
 		        SQL_SetFloat("cars", "y", VehicleInfo[vehid][carParkY], VehicleInfo[vehid][carID]);
 		        SQL_SetFloat("cars", "z", VehicleInfo[vehid][carParkZ], VehicleInfo[vehid][carID]);
 		        SQL_SetFloat("cars", "fa", VehicleInfo[vehid][carParkA], VehicleInfo[vehid][carID]);
+		        ResetVehicleStuff(vehid, 1);
 		        DestroyVehicleEx(vehid, 1);
 			}
 		}

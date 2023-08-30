@@ -518,6 +518,13 @@ CMD:destek(playerid, params[])
 	return 1;
 }*/
 
+CMD:debugsoygun(playerid, params[])
+{
+	JackingLock[playerid] = 5;
+	pTemp[playerid][JackingType] = 5;
+	return 1;
+}
+
 CMD:sat(playerid, params[])
 {
 	new bizid;
@@ -526,7 +533,7 @@ CMD:sat(playerid, params[])
 	{
 		if (BizInfo[bizid][bizType] == BIZ_PAWN)
 		{
-			Dialog_Show(playerid, SellPawn, DIALOG_STYLE_LIST, "Pawnshop", "• Radyo Sat", "Sat", "Ýptal");
+			Dialog_Show(playerid, SellPawn, DIALOG_STYLE_LIST, "Pawnshop", "• Radyo Sat\n• Çalýntý Eþyalarý Sat", "Sat", "Ýptal");
 		}
 	}
 	return 1;
