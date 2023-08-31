@@ -295,9 +295,9 @@ ReklamKabul(playerid, id) {
         SendReportMessage(COLOR_LIGHTRED, 1, "AdmCmd: Reklam veren kullanýcý: %s (Telefon: %d)", GetNameEx(pid), ReklamInfo[id][reklamTelefon]);
 		if (lastadvert >= MAX_LAST_ADVERT) lastadvert = 0;
 		else lastadvert++;
-		format(LastAdvertInfo[lastadvert][advertText], 144, "%s", string);
+		format(LastAdvertInfo[lastadvert][advertText], 144, "%s", ReklamInfo[id][reklamText]);
 		LastAdvertInfo[lastadvert][adverttime] = gettime();
-		LastAdvertInfo[lastadvert][advertnumber] = PlayerInfo[playerid][pNumber];
+		LastAdvertInfo[lastadvert][advertnumber] = ReklamInfo[id][reklamTelefon];
         ReklamSil(id);
         return 1;
 	}

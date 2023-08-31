@@ -181,7 +181,7 @@ CMD:admins(playerid, params[])
 			else if (PlayerInfo[i][pAdmin] == 2)						admin = "Liberty Admin";
 			else if (PlayerInfo[i][pRdscripter] == 3)						admin = "Party Scripter";
 			else if (PlayerInfo[i][pAdmin] == 1 && !PlayerInfo[i][pMapper])	admin = "Junior Admin";
-			else if (PlayerInfo[i][pAdmin] == 1337)					admin = "Developer";
+			else if (PlayerInfo[i][pAdmin] == 1337)					admin = "Founder";
 			else if (PlayerInfo[i][pMapper] == 1)                    admin = "Mapper";
 			//else													format(admin, sizeof(admin), "%i Yetkili", PlayerInfo[i][pAdmin]);
 			if (!IsAdminDuty(i))	SendClientMessageEx(playerid, COLOUR_ALTO, "(%s) %s (%s, ID: %i)", admin, GetNameEx(i), GetAccName(i), i);
@@ -533,7 +533,7 @@ CMD:sat(playerid, params[])
 	{
 		if (BizInfo[bizid][bizType] == BIZ_PAWN)
 		{
-			Dialog_Show(playerid, SellPawn, DIALOG_STYLE_LIST, "Pawnshop", "• Radyo Sat\n• Çalýntý Eþyalarý Sat", "Sat", "Ýptal");
+			Dialog_Show(playerid, SellPawn, DIALOG_STYLE_LIST, "Pawnshop", "Radyo Sat\nÇalýntý Eþyalarý Sat", "Sat", "Ýptal");
 		}
 	}
 	return 1;
@@ -561,7 +561,7 @@ CMD:satinal(playerid, params[])
 				case BIZ_PAWN: type = 7;
 			}
 			if (!type)	return SendErrorMessage(playerid, "[#PL-493] Sistem Hatasý!"); //return 1;
-			if (type == 7) SendHelpMessage(playerid, "/sat ile de satýþ menüsünü açabilirsin.");
+			if (type == 7) SendHelpMessage(playerid, "/sat komutunu unutma, çalýntý eþyalarýný satabilirsin.");
 
 			new diatxt[LIMIT_MAX_PRODUCTS*256];
 

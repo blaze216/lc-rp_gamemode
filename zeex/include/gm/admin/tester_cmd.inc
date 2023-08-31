@@ -108,8 +108,8 @@ CMD:tchat(playerid, params[])
 		{
 			if (!IsPlayerLogged(i) || (!IsTester(i, 1) && !CheckAdmin(i, ADMIN_LEVEL_1)) || (PlayerInfo[i][pSettings] & togTester)) continue;
 
-			SendClientMessageEx(i, COLOR_LIGHTGREEN, "[HC] (%s) %s (%s): %.*s ...", prefix, GetPlayerNameEx(playerid), GetAccName(playerid), pos, params);
-			SendClientMessageEx(i, COLOR_LIGHTGREEN, "... %s", params[pos]);
+			SendClientMessageEx(i, COLOR_ORANGE, "** HChat: (%s) %s (%s): %.*s ...", prefix, GetPlayerNameEx(playerid), GetAccName(playerid), pos, params);
+			SendClientMessageEx(i, COLOR_ORANGE, "... %s", params[pos]);
 		}
 		/*format(mes, sizeof(mes), "[HELPER] [%s] %s(%i): %.*s ...", prefix, GetAccName(playerid), playerid, pos, params);
 		SendStaffMessage(COLOR_LIGHTGREEN, mes);
@@ -122,7 +122,7 @@ CMD:tchat(playerid, params[])
 		{
 			if (!IsPlayerLogged(i) || (!IsTester(i, 1) && !CheckAdmin(i, ADMIN_LEVEL_1)) || (PlayerInfo[i][pSettings] & togTester)) continue;
 
-			SendClientMessageEx(i, COLOR_LIGHTGREEN, "[HC] (%s) %s (%s): %s", prefix, GetPlayerNameEx(playerid), GetAccName(playerid), params);
+			SendClientMessageEx(i, COLOR_ORANGE, "** HChat: (%s) %s (%s): %s", prefix, GetPlayerNameEx(playerid), GetAccName(playerid), params);
 		}
 		/*format(mes, sizeof(mes), "[HELPER] [%s] %s(%i): %s", prefix, GetAccName(playerid), playerid, params);
 		SendStaffMessage(COLOR_LIGHTGREEN, mes);*/

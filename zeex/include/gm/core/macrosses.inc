@@ -104,7 +104,7 @@ stock GetPlayerNameEx(playerid, underscore = 0)
 /////////////////////////////////////////// ADM CMD //////////////////
 
 #define SendAdmMessage(%0) \          
-	AMSG(COLOUR_TOMATO, "Admin: "%0) 
+	AMSG(COLOUR_TOMATO, "AdmCmd: "%0) 
 
 #define SAM \
 	SendAdmMessage
