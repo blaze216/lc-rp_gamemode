@@ -7,6 +7,7 @@
 #define MAX_ATMS 				(80)
 #define MAX_BORSA               (10)
 #define MAX_HOUSES 				(500)
+#define MAX_REKLAM              (200)
 #define MAX_REPORTS             (20)
 #define MAX_GARAGES 			(150)
 #define MAX_APART 				(200)

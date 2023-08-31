@@ -15,6 +15,16 @@ static const ReklamYasakli[][] = {
 "uroleplay"
 };
 
+enum E_REKLAM {
+    reklamExists,
+    reklamID,
+    reklamYapan[MAX_PLAYER_NAME],
+    reklamText[124],
+    reklamTelefon
+};
+new ReklamInfo[MAX_REKLAM][E_REKLAM];
+new Iterator:Reklamlar<MAX_REKLAM>;
+
 stock FindBadWordsOnAdvert(inputtext[])
 {
     for(new s; s < sizeof(ReklamYasakli); s++)
@@ -93,8 +103,9 @@ CMD:reklam(playerid, params[])
 	if (PlayerInfo[playerid][pInjured] != 0 || GetPVarInt(playerid, "Freeze") || pTemp[playerid][pTaserTime] || pTemp[playerid][pCuffed]) return 1;
 	if (!PlayerInfo[playerid][pNumber])				return SendErrorMessage(playerid, "Bir telefona ihtiyacýn var.");
     if (sscanf(params, "s[144]", params)) 		return SendHelpMessage(playerid, "/reklam [yazý]");
-    //if (PlayerInfo[playerid][pSettings] & togAdv)	return SendErrorMessage(playerid, "Reklam vermek için reklam görmeyi etkinleþtirin. /ayarlar");
-	//if (pTemp[playerid][pAdvertTime] > gettime())	return SendErrorMessage(playerid, "Tekrar reklam vermek için %s dakika beklemen gerek.", ConvertSecond(pTemp[playerid][pAdvertTime] - gettime()));
+    if (PlayerInfo[playerid][pSettings] & togAdv)	return SendErrorMessage(playerid, "Reklam vermek için reklam görmeyi etkinleþtirin. /ayarlar");
+	if (PlayerInfo[playerid][pVerdigiReklam] == 1)	return SendErrorMessage(playerid, "Þu anda reklamýnýz bulunuyor.");
+    if (pTemp[playerid][pAdvertTime] > gettime())	return SendErrorMessage(playerid, "Tekrar reklam vermek için %s dakika beklemen gerek.", ConvertSecond(pTemp[playerid][pAdvertTime] - gettime()));
     if(FindBadWordsOnAdvert(params))
     {
         SendErrorMessage(playerid,"Sohbet kutucuðuna girdiðiniz bir kelime yasaklýdýr. Tekrarlamayýnýz.");
@@ -118,7 +129,9 @@ CMD:reklam(playerid, params[])
         GiveBizCash(bizid, BizInfo[bizid][bizEntrance]);
     }
 
-	foreach(new i : Player)
+	 pTemp[playerid][pAdvertTime] = gettime() + 300;
+
+	/*foreach(new i : Player)
 	{
 		if(PlayerInfo[playerid][pSettings] & togAdv) continue;
 
@@ -135,20 +148,21 @@ CMD:reklam(playerid, params[])
 	    {
   		    SendClientMessageEx(i, COLOR_GREENFORADVERT, "[%s] %s: %s No: %d", BizInfo[bizid][bizName], GetNameEx(playerid), params, PlayerInfo[playerid][pNumber]);
 	    }		
-	}	
+	}	*/
 
     //SendDiscordAdvertisements(GetNameEx(playerid), PlayerInfo[playerid][pNumber], params);
 
+	PlayerInfo[playerid][pVerdigiReklam] = 1;
 	SendServerMessage(playerid, "Baþarýyla reklam verdiniz. Bir sonraki reklam için 300 saniye beklemelisiniz.");
-
-	if (lastadvert >= MAX_LAST_ADVERT) lastadvert = 0;
+	ReklamEkle(playerid, params, PlayerInfo[playerid][pNumber]);
+	/*if (lastadvert >= MAX_LAST_ADVERT) lastadvert = 0;
 	else lastadvert++;
 	format(LastAdvertInfo[lastadvert][advertText], 144, "%s", params);
 	LastAdvertInfo[lastadvert][adverttime] = gettime();
 	LastAdvertInfo[lastadvert][advertnumber] = PlayerInfo[playerid][pNumber];
 
     pTemp[playerid][pAdvertTime] = gettime() + 300;
-	GiveCash(playerid, -BizInfo[bizid][bizEntrance]);
+	GiveCash(playerid, -BizInfo[bizid][bizEntrance]);*/
 	return 1;
 }
 
@@ -159,6 +173,7 @@ CMD:mekanreklam(playerid, params[])
 	if (sscanf(params, "s[144]", params)) 		return SendHelpMessage(playerid, "/mekanreklam [yazý]");
     if (PlayerInfo[playerid][pSettings] & togAdv)	return SendErrorMessage(playerid, "Lütfen önce reklamlarý etkinleþtirin. /ayarlar");
 	if (GetCash(playerid) < 100)				return SendErrorMessage(playerid, "Yeterli paranýz yok. Reklam Fiyatý: $100.");
+	if (PlayerInfo[playerid][pVerdigiReklam] == 1)	return SendErrorMessage(playerid, "Þu anda reklamýnýz bulunuyor.");
 	if (pTemp[playerid][pAdvertTime] > gettime())	return SendErrorMessage(playerid, "Tekrar reklam vermek için %s dakika beklemen gerek.", ConvertSecond(pTemp[playerid][pAdvertTime] - gettime()));
 	if(sscanf(params, "s[144]", anunt)) return SendErrorMessage(playerid, "Reklamýz çok kýsa veya uzun.");
     if(FindBadWordsOnAdvert(params))
@@ -185,7 +200,7 @@ CMD:mekanreklam(playerid, params[])
 
     pTemp[playerid][pAdvertTime] = gettime() + 300;
 
-	foreach(new i : Player)
+	/*foreach(new i : Player)
 	{
 		if(PlayerInfo[playerid][pSettings] & togAdv) continue;
 
@@ -202,21 +217,182 @@ CMD:mekanreklam(playerid, params[])
 	    {
   		    SendClientMessageEx(i, COLOR_GREENFORADVERT, "[%s] %s (/igps %d)", BizInfo[bizid][bizName], params, bizid);
 	    }		
-	}
+	}*/
 
 	SendServerMessage(playerid, "Baþarýyla reklam verdiniz. Bir sonraki reklam için 300 saniye beklemelisiniz.");
 
    // SendDiscordAdvertisements(GetNameEx(playerid), PlayerInfo[playerid][pNumber], params);
+    PlayerInfo[playerid][pVerdigiReklam] = 1;
+    ReklamEkle(playerid, params, PlayerInfo[playerid][pNumber]);
 
-	if (lastadvert >= MAX_LAST_ADVERT) lastadvert = 0;
+	/*if (lastadvert >= MAX_LAST_ADVERT) lastadvert = 0;
 	else lastadvert++;
 	format(LastAdvertInfo[lastadvert][advertText], 144, "%s", params);
 	LastAdvertInfo[lastadvert][adverttime] = gettime();
-	LastAdvertInfo[lastadvert][advertnumber] = PlayerInfo[playerid][pNumber];
+	LastAdvertInfo[lastadvert][advertnumber] = PlayerInfo[playerid][pNumber];*/
 	return 1;
 }
 
-CMD:reklamlar(playerid, params[])
+ReklamEkle(playerid, string[], telno) {
+        new id = Iter_Free(Reklamlar);
+		if(id != -1) {
+        ReklamInfo[id][reklamExists] = 1;
+        ReklamInfo[id][reklamID] = id;
+        format(ReklamInfo[id][reklamYapan], MAX_PLAYER_NAME, "%s", GetNameEx(playerid));
+        format(ReklamInfo[id][reklamText], 124, "%s", string);
+        ReklamInfo[id][reklamTelefon] = telno;
+        PlayerInfo[playerid][pVerdigiReklam] = id;
+        SendServerMessage(playerid, "Reklamýnýz baþarýyla oluþturuldu, helper ve üstü reklamýnýzý onayladýðýnda reklamýnýz yayýnlanacak.");
+        SendServerMessage(playerid, "Reklamýnýzý iptal etmek isterseniz /reklamiptal komutunu kullanabilirsiniz.");
+        SendReportMessage(COLOR_LIGHTRED, 1,  "AdmCmd: Yeni reklam isteði geldi. Gönderen: %s (ID:%d)", GetNameEx(playerid), playerid);
+        SendReportMessage(COLOR_LIGHTRED, 1, "AdmCmd: [Reklam]: %s", string);
+		if (lastadvert >= MAX_LAST_ADVERT) lastadvert = 0;
+		else lastadvert++;
+		format(LastAdvertInfo[lastadvert][advertText], 144, "%s", string);
+		LastAdvertInfo[lastadvert][adverttime] = gettime();
+		LastAdvertInfo[lastadvert][advertnumber] = PlayerInfo[playerid][pNumber];
+		Iter_Add(Reklamlar, id);
+		} else return SendErrorMessage(playerid, "Sunucuda maksimum reklam istek sayýsýna ulaþýlmýþ, lütfen bekleyin.");
+    return 1;
+}
+
+CMD:reklamiptal(playerid) {
+	if(PlayerInfo[playerid][pVerdigiReklam] == -1) return SendErrorMessage(playerid, "Zaten bir reklam vermemiþsiniz.");
+	ReklamSil(PlayerInfo[playerid][pVerdigiReklam]);
+	PlayerInfo[playerid][pVerdigiReklam] = -1;
+	SendServerMessage(playerid, "Verdiðiniz reklam baþarýyla silindi.");
+	return 1;
+}
+
+ReklamSil(id) {
+    if(ReklamInfo[id][reklamExists]) {
+        ReklamInfo[id][reklamExists] = 0;
+        ReklamInfo[id][reklamID] = -1;
+        format(ReklamInfo[id][reklamYapan], MAX_PLAYER_NAME, "Yok");
+        format(ReklamInfo[id][reklamText], 124, "Yok");
+        ReklamInfo[id][reklamTelefon] = 0;
+		Iter_Remove(Reklamlar, id);
+        return 1;
+		
+    }
+    return 0;
+}
+
+ReklamKabul(playerid, id) {
+    if(ReklamInfo[id][reklamExists]) {
+        new pid;
+        foreach(new i: Player) {
+            if(!IsPlayerLogged(playerid))continue;
+            if(!strcmp(GetNameEx(i), ReklamInfo[id][reklamYapan], true)) {
+                pid = i;
+                break;
+            }
+        }
+        PlayerInfo[pid][pVerdigiReklam] = -1;
+        SendServerMessage(pid, "Reklamýnýz %s tarafýndan kabul edilmiþ ve yayýnlanmýþtýr.", GetNameEx(playerid));
+        SendServerMessage(playerid, "%s adlý oyuncunun reklamýný kabul ettiniz ve yayýnladýnýz.", GetNameEx(pid));
+        foreach(new j : Player) {
+            if(PlayerInfo[playerid][pSettings] & togAdv) continue;
+            SendClientMessageEx(j, COLOR_GREENFORADVERT, "[Reklam] %s (Ýletiþim: %d)", ReklamInfo[id][reklamText], ReklamInfo[id][reklamTelefon]);
+        }
+        SendReportMessage(COLOR_LIGHTRED, 1, "AdmCmd: Reklam veren kullanýcý: %s (Telefon: %d)", GetNameEx(pid), ReklamInfo[id][reklamTelefon]);
+        ReklamSil(id);
+        return 1;
+	}
+	return 1;
+}
+
+ReklamRed(playerid, id, sebep[]) {
+    if(ReklamInfo[id][reklamExists]) {
+        new pid;
+        foreach(new i: Player) {
+            if(!IsPlayerLogged(playerid))continue;
+            if(!strcmp(GetNameEx(i), ReklamInfo[id][reklamYapan], true)) {
+                pid = i;
+                break;
+            }
+        }
+        PlayerInfo[pid][pVerdigiReklam] = -1;
+        SendServerMessage(pid, "Reklamýnýz %s tarafýndan reddedilmiþtir. Sebep: %s", GetNameEx(playerid), sebep);
+        SendServerMessage(playerid, "%s adlý oyuncunun reklamýný reddettiniz. Sebep: %s", GetNameEx(pid), sebep);
+        ReklamSil(id);
+        return 1;
+    } else return SendErrorMessage(playerid, "Bu reklam silinmiþ.");
+}
+
+CMD:reklamlar(playerid) {
+    new dialogString[2048], count = 0;
+	if(!CheckAdmin(playerid, 1 && !IsTester(playerid, 1))) return SendErrorMessage(playerid, "Yönetici deðilsiniz");
+    foreach(new i: Reklamlar) {
+        if(ReklamInfo[i][reklamExists]) {
+            format(dialogString, sizeof dialogString, "%s{ffffff}%d\t{ffffff}%s\n", dialogString, ReklamInfo[i][reklamID], ReklamInfo[i][reklamYapan]);
+            PlayerInfo[playerid][pReklamID][count] = ReklamInfo[i][reklamID];
+            count++;
+        }
+    }
+    if(count == 0) return SendErrorMessage(playerid, "Gösterilebilecek bir reklam yok.");
+    Dialog_Show(playerid, DialogReklamList, DIALOG_STYLE_TABLIST_HEADERS, "Reklam Listesi", "Reklam ID\tReklamý Yapan\n%s", "Seçenekler", "Ýptal", dialogString);
+    return 1;
+}
+
+Dialog:DialogReklamList(playerid, response, listitem, inputtext[]) {
+    if(response) {
+        new dialogString[300], baslik[35];
+        PlayerInfo[playerid][pIlgilendigiReklam] = PlayerInfo[playerid][pReklamID][listitem];
+        new reklam = PlayerInfo[playerid][pIlgilendigiReklam];
+        format(dialogString, sizeof dialogString, "{4b75c3}Reklam ID: {ffffff}%d\n{4b75c3}Reklamý Yapan: {ffffff}%s\n{4b75c3}Reklam: {ffffff}%s\n{4b75c3}Telefon Numarasý: {ffffff}%d", ReklamInfo[reklam][reklamID], ReklamInfo[reklam][reklamYapan], ReklamInfo[reklam][reklamText], ReklamInfo[reklam][reklamTelefon]);
+        format(baslik, sizeof baslik, "Reklam Ayrýntýlarý - {4b75c3}#%d", reklam);
+        Dialog_Show(playerid, DialogReklamSecenek, DIALOG_STYLE_MSGBOX, baslik, dialogString, "Seçenekler", "Ýptal");
+    } else
+        PlayerInfo[playerid][pIlgilendigiReklam] = -1;
+    return 1;
+}
+
+Dialog:DialogReklamSecenek(playerid, response, listitem, inputtext[]) {
+    if(response) {
+        new reklam = PlayerInfo[playerid][pIlgilendigiReklam];
+        new baslik[35];
+        format(baslik, sizeof baslik, "Reklam Seçeneleri - {4b75c3}#%d", reklam);
+        Dialog_Show(playerid, DialogReklamSecenekList, DIALOG_STYLE_LIST, baslik, "Kabul et\nReddet", "Seç", "<< Geri");
+    }
+    return 1;
+}
+
+Dialog:DialogReklamSecenekList(playerid, response, listitem, inputtext[]) {
+    if(response) {
+        switch(listitem) {
+            case 0: {
+                ReklamKabul(playerid, PlayerInfo[playerid][pIlgilendigiReklam]);
+                PlayerInfo[playerid][pIlgilendigiReklam] = -1;
+            }
+            case 1: {
+                Dialog_Show(playerid, DialogReklamReddet, DIALOG_STYLE_INPUT, "Reklam Reddet", "Reddetme sebebini aþaðýya girin:", "Tamam", "<< Geri");
+            }
+        }
+    } else {
+        new dialogString[300], baslik[35];
+        new reklam = PlayerInfo[playerid][pIlgilendigiReklam];
+        format(dialogString, sizeof dialogString, "{4b75c3}Reklam ID: {ffffff}%d\n{4b75c3}Reklamý Yapan: {ffffff}%s\n{4b75c3}Reklam: {ffffff}%s\n{4b75c3}Telefon Numarasý: {ffffff}%d", ReklamInfo[reklam][reklamID], ReklamInfo[reklam][reklamYapan], ReklamInfo[reklam][reklamText], ReklamInfo[reklam][reklamTelefon]);
+        format(baslik, sizeof baslik, "Reklam Ayrýntýlarý - {4b75c3}#%d", reklam);
+        Dialog_Show(playerid, DialogReklamSecenek, DIALOG_STYLE_MSGBOX, baslik, dialogString, "Seçenekler", "Ýptal");
+    }
+    return 1;
+}
+
+Dialog:DialogReklamReddet(playerid, response, listitem, inputtext[]) {
+    if(response) {
+        ReklamRed(playerid, PlayerInfo[playerid][pIlgilendigiReklam], inputtext);
+        PlayerInfo[playerid][pIlgilendigiReklam] = -1;
+    } else {
+        new reklam = PlayerInfo[playerid][pIlgilendigiReklam];
+        new baslik[35];
+        format(baslik, sizeof baslik, "Reklam Seçeneleri - {4b75c3}#%d", reklam);
+        Dialog_Show(playerid, DialogReklamSecenekList, DIALOG_STYLE_LIST, baslik, "Kabul et\nReddet", "Seç", "<< Geri");
+    }
+    return 1;
+}
+
+CMD:sonreklamlar(playerid, params[])
 {
 	return pc_cmd_sonreklam(playerid, "");
 }
@@ -233,7 +409,6 @@ Advertisement_Nearest(playerid)
 	
 	return -1;
 }
-
 /*
 stock DiscordLetterFixAdvert(info[])
 {

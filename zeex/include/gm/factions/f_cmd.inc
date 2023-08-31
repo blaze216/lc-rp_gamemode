@@ -185,7 +185,7 @@ CMD:rutbedegistir(playerid, params[])
 			 
 	PlayerInfo[userid][pRank] = rank;
 	SendSyntaxMessage(userid, "%s sizin rütbenizi '%s' olarak deðiþtirdi.", GetNameEx(playerid), GetRankName(userid));
-	SendSyntaxMessage(playerid, "%s adlý kiþinin rütbesini '%s' olarak ayraladýnýz.", GetNameEx(userid), GetRankName(userid));	
+	SendSyntaxMessage(playerid, "%s adlý kiþinin rütbesini '%s' olarak ayarladýnýz.", GetNameEx(userid), GetRankName(userid));	
 
 	SQL_SetInteger("users", "rank", PlayerInfo[userid][pRank], PlayerInfo[userid][pID]);
 	return 1;
