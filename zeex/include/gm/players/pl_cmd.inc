@@ -818,7 +818,7 @@ CMD:mapfix(playerid, params[])
 {
 	new Float:pXa, Float:pYa, Float:pZa;
 	GetPlayerPos(playerid, pXa, pYa, pZa);
-	if(GetPlayerVirtualWorld(playerid) == 0 && GetPlayerInterior(playerid) == 0 && pZa < 25.0)
+	if(GetPlayerVirtualWorld(playerid) == 0 && GetPlayerInterior(playerid) == 0 && pZa < -20.0)
 	{
 		if(PlayerInfo[playerid][pJailTime] > 1) return SendErrorMessage(playerid, "Bu komutu kullanamazsýn.");
 		SendClientMessageEx(playerid, COLOUR_TOMATO, "Bulunduðun bug durumundan kurtuldun.");

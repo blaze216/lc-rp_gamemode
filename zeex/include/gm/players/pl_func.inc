@@ -1606,14 +1606,9 @@ SetPlayerPosEx(playerid, Float:x, Float:y, Float:z, freeze = 1)
 {
 	SetPVarInt(playerid, "tpOnlem", 1);
 	pTemp[playerid][HileKontrol] = gettime() + 4;
-	SetPlayerPos(playerid, x, y, z + 0.6);
+	SetPlayerPos(playerid, x, y, z + 0.5);
  	SetCameraBehindPlayer(playerid);
 	PlayerEnterFreeze(playerid);
-	if (freeze != 0)
-	{
- 		FreezePlayer(playerid);
- 		pTemp[playerid][pFreezeTime] = 2;
-	}
 	if(FlyMode[playerid]) SetPlayerObjectPos(playerid, noclipdata[playerid][flyobject], x, y, z);
 	return 1;
 }
