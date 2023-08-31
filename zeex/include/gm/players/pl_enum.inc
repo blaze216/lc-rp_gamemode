@@ -237,7 +237,6 @@ enum PLAYER_TEMP_ENUM
 	pLTL,
 	pTaser,
 	pTaserTime,
-	pFreezeTime,
 	Float:pInvulnerable,
 	pEditBort,
 	pCCTV,

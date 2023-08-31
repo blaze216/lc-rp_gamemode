@@ -17,7 +17,7 @@ this::Float:GetPlayerDistanceFromPlayer(playerid, targetid)
 PlayerEnterFreeze(playerid)
 {
 	FreezePlayer(playerid);
-	SetTimerEx("PlayerEnterUnFreeze", 5500, false, "i", playerid);
+	SetTimerEx("PlayerEnterUnFreeze", 5000, false, "i", playerid);
 	return 1;
 }
 
@@ -782,16 +782,15 @@ ResetPlayerVariables(playerid)
 	pTemp[playerid][pTaser] = 
 	pTemp[playerid][pBeanbag] =
 	pTemp[playerid][pLTL] =
-	pTemp[playerid][pTaserTime] = 
-	pTemp[playerid][pFreezeTime] =
+	pTemp[playerid][pTaserTime] = -1;
 	pTemp[playerid][pEditBort] = 
     pTemp[playerid][pCCTV] = 
 	pTemp[playerid][pZond] = 
 	pTemp[playerid][pDamagesCount] = 
-	pTemp[playerid][pInjuredTime] = 
+	pTemp[playerid][pInjuredTime] =
 	pTemp[playerid][pInjuredLegTime] = 
 	pTemp[playerid][pHelpUp3dText] = 
-	pTemp[playerid][pFlashTime] =
+	pTemp[playerid][pFlashTime] = -1;
 	pTemp[playerid][pHealTime] = 
 	pTemp[playerid][pBuildHouse] = 
 	pTemp[playerid][pRamType] = 
@@ -1084,9 +1083,9 @@ Dialog:Bug_Resolver_Falling(playerid, response, listitem, inputtext[])
 	}
 	else
 	{
-	if(houseid != -1) SetPlayerPosEx(playerid,HouseInfo[houseid][hExitX],HouseInfo[houseid][hExitY],HouseInfo[houseid][hExitZ] + 1.0);
+	    if(houseid != -1) SetPlayerPosEx(playerid,HouseInfo[houseid][hExitX],HouseInfo[houseid][hExitY],HouseInfo[houseid][hExitZ] + 1.0);
 	
-	if(bizid != -1) SetPlayerPosEx(playerid,BizInfo[bizid][bizExitX], BizInfo[bizid][bizExitY], BizInfo[bizid][bizExitZ] + 1.0);
+	    if(bizid != -1) SetPlayerPosEx(playerid,BizInfo[bizid][bizExitX], BizInfo[bizid][bizExitY], BizInfo[bizid][bizExitZ] + 1.0);
 	}
 
 	SM1(playerid, "Blaze Guard seni bulunduðun durumdan kurtardý. Ýyi eðlenceler dileriz!");
@@ -1607,14 +1606,9 @@ SetPlayerPosEx(playerid, Float:x, Float:y, Float:z, freeze = 1)
 {
 	SetPVarInt(playerid, "tpOnlem", 1);
 	pTemp[playerid][HileKontrol] = gettime() + 4;
-	SetPlayerPos(playerid, x, y, z + 0.6);
+	SetPlayerPos(playerid, x, y, z + 0.5);
  	SetCameraBehindPlayer(playerid);
 	PlayerEnterFreeze(playerid);
-	if (freeze != 0)
-	{
- 		FreezePlayer(playerid);
- 		pTemp[playerid][pFreezeTime] = 2;
-	}
 	if(FlyMode[playerid]) SetPlayerObjectPos(playerid, noclipdata[playerid][flyobject], x, y, z);
 	return 1;
 }

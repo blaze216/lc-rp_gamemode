@@ -275,6 +275,7 @@ ReklamSil(id) {
 }
 
 ReklamKabul(playerid, id) {
+    new string[166];
     if(ReklamInfo[id][reklamExists]) {
         new pid;
         foreach(new i: Player) {

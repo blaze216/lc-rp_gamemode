@@ -24,26 +24,26 @@ this::PlayerTimer()
 
 		//if (!IsPlayerAFK(i)) Fire_Check(i);
 
-/*
-        if(IsPlayerFalling(i) && GetPlayerVirtualWorld(i) > 0 && GetNearHouse(i) != -1 || GetNearBiz(i) != -1)
+
+        if(IsPlayerFalling(i) && GetPlayerVirtualWorld(i) > 0)
 		{
             new houseid = pTemp[i][pHouseEntered];
 		    new bizid = pTemp[i][pBizEntered];
 
-			if(bizid == -1 || houseid == -1) houseid = GetNearInsideHouse(i, 100.0), bizid = GetNearInsideBiz(i, 100.0);
+			if(bizid == -1 && houseid == -1) houseid = GetNearInsideHouse(i, 100.0), bizid = GetNearInsideBiz(i, 100.0);
 
-			if(bizid == -1 || houseid == -1) return 0;
+			if(bizid == -1 && houseid == -1) return 0;
 
-			if(GetPlayerDistanceToPointEx(i, HouseInfo[houseid][hExitX], HouseInfo[houseid][hExitY], HouseInfo[houseid][hExitZ]) > 30.0)
-                BugResolverFalling(i);			
+			new Float:oXa, Float:oYa, Float:oZa;
+			GetPlayerPos(i, oXa, oYa, oZa);
 
-			else if(GetPlayerDistanceToPointEx(i, BizInfo[bizid][bizExitX], BizInfo[bizid][bizExitY], BizInfo[bizid][bizExitZ]) > 30.0)
-                BugResolverFalling(i);
+			if(houseid != -1 && (oZa - HouseInfo[houseid][hExitZ]) < -10) return BugResolverFalling(i);			
+
+			else if(bizid != -1 && (oZa - BizInfo[bizid][bizExitZ]) < -10) return BugResolverFalling(i);
 
 			else return 0;	
 		}
-		else return 0;
-*/	
+	
 
         if(IsPlayerFalling(i) && GetPlayerVirtualWorld(i) == 0 && GetPlayerInterior(i) == 0)
 		{
@@ -370,12 +370,6 @@ this::PlayerTimer()
 				UnFreezePlayer(i);
 				SetPlayerDrunkLevel(i, 1999);
 			}
-		}
-
-		if (pTemp[i][pFreezeTime])
-		{
-		    pTemp[i][pFreezeTime]--;
-		    if (pTemp[i][pFreezeTime] == 0) UnFreezePlayer(i);
 		}
 
 		if (pTemp[i][pInjuredLegTime]) pTemp[i][pInjuredLegTime]--;
