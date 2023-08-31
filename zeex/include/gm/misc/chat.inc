@@ -414,13 +414,13 @@ CMD:b(playerid,params[])
 		if (pos < MAXLEN-1) pos = MAXLEN;
 
 		if (maskOn{playerid})			format(mes, sizeof(mes), "(( [OOC] %s: %.*s ... ))", GetNameWithMask(playerid), pos, params);
-		else if (PlayerInfo[playerid][pAdmin] > 0 && IsAdminDuty(playerid)) 	format(mes, sizeof(mes), "(( [OOC] {a92626}%s{AFAFAF}: %.*s ... ))", GetPlayerNameEx(playerid), pos, params);
+		else if (PlayerInfo[playerid][pAdmin] > 0 && IsAdminDuty(playerid)) 	format(mes, sizeof(mes), "{FFFFFF}(( [OOC] {a92626}%s{FFFFFF}: %.*s ... ))", GetPlayerNameEx(playerid), pos, params);
 		else 							format(mes, sizeof(mes), "(( [OOC] %s: %.*s ... ))", GetNameEx(playerid), pos, params);
 
 		ProxDetectorOutOfCharacter(20.0, playerid, mes, COLOUR_ALTO);
 
 		if (maskOn{playerid}) 			format(mes, sizeof(mes), "(( ... %s ))", params[pos]);
-		else if (PlayerInfo[playerid][pAdmin] > 0 && IsAdminDuty(playerid)) 	format(mes, sizeof(mes), "(( ... %s ))", params[pos]);
+		else if (PlayerInfo[playerid][pAdmin] > 0 && IsAdminDuty(playerid)) 	format(mes, sizeof(mes), "{FFFFFF}(( ... %s ))", params[pos]);
 		else 							format(mes, sizeof(mes), "(( ... %s ))", params[pos]);
 
 		ProxDetectorOutOfCharacter(20.0, playerid, mes, COLOUR_ALTO);
@@ -428,7 +428,7 @@ CMD:b(playerid,params[])
 	else
 	{
 		if (maskOn{playerid}) 			format(mes, sizeof(mes), "(( [OOC] %s: %s ))", GetNameWithMask(playerid), params);
-		else if (PlayerInfo[playerid][pAdmin] > 0 && IsAdminDuty(playerid)) 	format(mes, sizeof(mes), "(( [OOC] {a92626}%s{AFAFAF}: %s ))", GetPlayerNameEx(playerid), params);
+		else if (PlayerInfo[playerid][pAdmin] > 0 && IsAdminDuty(playerid)) 	format(mes, sizeof(mes), "{FFFFFF}(( [OOC] {a92626}%s{FFFFFF}: %s ))", GetPlayerNameEx(playerid), params);
 		else 							format(mes, sizeof(mes), "(( [OOC] %s: %s ))", GetNameEx(playerid), params);
 
 		ProxDetectorOutOfCharacter(20.0, playerid, mes, COLOUR_ALTO);
