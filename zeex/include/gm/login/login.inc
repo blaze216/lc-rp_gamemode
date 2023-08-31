@@ -180,7 +180,7 @@ Login_OnPlayerDisconnect(playerid, reason)
 			}			
 		}
 
-		if (pTemp[playerid][pRentveh] != 0)
+		if (pTemp[playerid][pRentveh] > 0)
 		{
 		    new vehicle = pTemp[playerid][pRentveh];
 
@@ -188,7 +188,7 @@ Login_OnPlayerDisconnect(playerid, reason)
     		pTemp[playerid][pRentveh] = 0;
     	}
     
-		if (PlayerInfo[playerid][pCarKey] != 0)
+		if (PlayerInfo[playerid][pCarKey] > 0)
 		{
 			new vehicle = PlayerInfo[playerid][pCarKey];
 

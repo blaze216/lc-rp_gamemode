@@ -363,7 +363,7 @@ stock SendPhoneMessageEx(target, color, const str[], {Float,_}:...)
  
         foreach(Player, i)
         {
-            if(!IsPlayerLogged(i) || pTemp[i][pTracePlayer] != target || i != target) continue;
+            if(!IsPlayerLogged(i) || (pTemp[i][pTracePlayer] != target && i != target)) continue;
  
             SendClientMessage(i, color, string);
         }
@@ -372,7 +372,7 @@ stock SendPhoneMessageEx(target, color, const str[], {Float,_}:...)
  
     foreach(Player, i)
     {
-        if(!IsPlayerLogged(i) || pTemp[i][pTracePlayer] != target || i != target) continue;
+        if(!IsPlayerLogged(i) || (pTemp[i][pTracePlayer] != target && i != target)) continue;
  
         SendClientMessage(i, color, str);
     }

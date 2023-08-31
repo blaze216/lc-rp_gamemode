@@ -16,8 +16,9 @@ this::Float:GetPlayerDistanceFromPlayer(playerid, targetid)
 
 PlayerEnterFreeze(playerid)
 {
+	InfoMSG(playerid, "~w~Objeler ~g~yukleniyor", 6);
 	FreezePlayer(playerid);
-	SetTimerEx("PlayerEnterUnFreeze", 5000, false, "i", playerid);
+	SetTimerEx("PlayerEnterUnFreeze", 4500, false, "i", playerid);
 	return 1;
 }
 
@@ -782,7 +783,7 @@ ResetPlayerVariables(playerid)
 	pTemp[playerid][pTaser] = 
 	pTemp[playerid][pBeanbag] =
 	pTemp[playerid][pLTL] =
-	pTemp[playerid][pTaserTime] = -1;
+	pTemp[playerid][pTaserTime] =
 	pTemp[playerid][pEditBort] = 
     pTemp[playerid][pCCTV] = 
 	pTemp[playerid][pZond] = 
@@ -790,7 +791,7 @@ ResetPlayerVariables(playerid)
 	pTemp[playerid][pInjuredTime] =
 	pTemp[playerid][pInjuredLegTime] = 
 	pTemp[playerid][pHelpUp3dText] = 
-	pTemp[playerid][pFlashTime] = -1;
+	pTemp[playerid][pFlashTime] =
 	pTemp[playerid][pHealTime] = 
 	pTemp[playerid][pBuildHouse] = 
 	pTemp[playerid][pRamType] = 
@@ -1079,17 +1080,18 @@ Dialog:Bug_Resolver_Falling(playerid, response, listitem, inputtext[])
 			SetPlayerPosEx(playerid,BizInfo[bizid][bizPosX], BizInfo[bizid][bizPosY], BizInfo[bizid][bizPosZ] + 1.0);
 			SetWorld(playerid, BizInfo[bizid][bizPosVW]);
 			SetInterior(playerid, BizInfo[bizid][bizPosInt]);
-		}			
+		}	
+		PlayerEnterFreeze(playerid);		
 	}
 	else
 	{
 	    if(houseid != -1) SetPlayerPosEx(playerid,HouseInfo[houseid][hExitX],HouseInfo[houseid][hExitY],HouseInfo[houseid][hExitZ] + 1.0);
 	
 	    if(bizid != -1) SetPlayerPosEx(playerid,BizInfo[bizid][bizExitX], BizInfo[bizid][bizExitY], BizInfo[bizid][bizExitZ] + 1.0);
+		PlayerEnterFreeze(playerid);
 	}
 
 	SM1(playerid, "Blaze Guard seni bulunduðun durumdan kurtardý. Ýyi eðlenceler dileriz!");
-	UnFreezePlayer(playerid);
 	return 1;
 }
 

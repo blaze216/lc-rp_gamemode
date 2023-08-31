@@ -30,7 +30,7 @@ this::OnServerSettingsLoaded()
 
 	if(rows)
 	{
-		cache_get_value(0, "hostname", ServerInfo[sHostName], 64);
+		cache_get_value(0, "hostname", ServerInfo[sHostName], 120);
 		cache_get_value(0, "weburl", ServerInfo[sWebUrl], 64);
 		cache_get_value(0, "language", ServerInfo[sLanguage], 64);
 		cache_get_value(0, "map", ServerInfo[sMap], 32);

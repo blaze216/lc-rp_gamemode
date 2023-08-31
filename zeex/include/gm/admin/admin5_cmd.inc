@@ -537,9 +537,9 @@ CMD:server(playerid, params[])
 
 	if(!strcmp(opt, "isim", true))
 	{
-		new name[64];
+		new name[124];
 
-		if(sscanf(str, "s[64]", name))
+		if(sscanf(str, "s[124]", name))
 			return SendHelpMessage(playerid, "/server <isim> [sunucu ismi]");
 
 		format(ServerInfo[sHostName], sizeof(ServerInfo[sHostName]), name);	

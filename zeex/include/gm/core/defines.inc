@@ -121,7 +121,7 @@ Dialog:None(playerid, response, listitem, inputtext[])
 
 // Server data
 enum E_Server {
-    sHostName[32],
+    sHostName[120],
     sWebUrl[32],
     sLanguage[64],
     sMap[32],
