@@ -37,9 +37,9 @@ this::PlayerTimer()
 			new Float:oXa, Float:oYa, Float:oZa;
 			GetPlayerPos(i, oXa, oYa, oZa);
 
-			if(oZa < HouseInfo[houseid][hExitZ]) return BugResolverFalling(i);			
+			if(houseid != -1 && (oZa - HouseInfo[houseid][hExitZ]) < -10) return BugResolverFalling(i);			
 
-			else if(oZa < BizInfo[bizid][bizExitZ]) return BugResolverFalling(i);
+			else if(bizid != -1 && (oZa - BizInfo[bizid][bizExitZ]) < -10) return BugResolverFalling(i);
 
 			else return 0;	
 		}
@@ -370,12 +370,6 @@ this::PlayerTimer()
 				UnFreezePlayer(i);
 				SetPlayerDrunkLevel(i, 1999);
 			}
-		}
-
-		if (pTemp[i][pFreezeTime])
-		{
-		    pTemp[i][pFreezeTime]--;
-		    if (pTemp[i][pFreezeTime] == 0) UnFreezePlayer(i);
 		}
 
 		if (pTemp[i][pInjuredLegTime]) pTemp[i][pInjuredLegTime]--;

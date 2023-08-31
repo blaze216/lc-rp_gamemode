@@ -1057,10 +1057,7 @@ CMD:freeze(playerid, params[])
 		return SendHelpMessage(playerid, "/freeze [ID/Karakter Adı]");
 
 	if (!IsPlayerLogged(userid))
-		return SendNotConnected(playerid);
-
-	if(pTemp[userid][pFreezeTime] > 0)
-	    return UnFreezePlayer(userid);	
+		return SendNotConnected(playerid);	
 
 	SendServerMessage(userid, "Yönetici tarafından donduruldunuz.");
 	SendAdmMessageToPlayer(playerid, "%s [ID: %i] adlı oyuncuyu dondurdunuz.", GetNameEx(userid), userid);

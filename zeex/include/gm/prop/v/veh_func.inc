@@ -924,6 +924,7 @@ ShowBuyingVehicleDetails(playerid)
 Save_Car(vehicleid)
 {
 	if (!VehicleInfo[vehicleid][carOwnerID]) return 1;
+	if (!IsValidVehicle(vehicleid)) return 1;
 	
 	new Float:hp, panels, doorss, lightss, tires;
 
