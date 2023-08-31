@@ -91,9 +91,9 @@ CMD:sonreklam(playerid, params[])
 		format(mes, sizeof(mes), "%s\n\t{a9c4e4}No: %i\t(%s){FFFFFF}\n\n", mes, LastAdvertInfo[i][advertnumber], time);
 	}
 	
-	if (strlen(mes) < 9)	return Dialog_Show(playerid, None, DIALOG_STYLE_MSGBOX, "{bccd32}Son Reklamlar", "Reklam listesi boþ.", "Kapat", "");
+	if (strlen(mes) < 9)	return Dialog_Show(playerid, None, DIALOG_STYLE_MSGBOX, "{ffffff}Son Reklamlar", "Reklam listesi boþ.", "Kapat", "");
 	    
-	Dialog_Show(playerid, None, DIALOG_STYLE_MSGBOX, "{bccd32}Son Reklamlar", mes, "Kapat", "");
+	Dialog_Show(playerid, None, DIALOG_STYLE_MSGBOX, "{ffffff}Son Reklamlar", mes, "Kapat", "");
 	return 1;
 }
 
@@ -183,7 +183,8 @@ CMD:mekanreklam(playerid, params[])
         return 0;
     }
 	
-    new bizid = GetNearBiz(playerid), calisan = 0;
+    new bizid = GetNearBiz(playerid);
+	new calisan = 0;
 	for(new listitem = 0; listitem < MAX_WORK_SPACE; listitem++)
 	{
 	    for(new i; i < GetPlayerPoolSize(); i++)
@@ -246,11 +247,6 @@ ReklamEkle(playerid, string[], telno) {
         SendServerMessage(playerid, "Reklamýnýzý iptal etmek isterseniz /reklamiptal komutunu kullanabilirsiniz.");
         SendReportMessage(COLOR_LIGHTRED, 1,  "AdmCmd: Yeni reklam isteði geldi. Gönderen: %s (ID:%d)", GetNameEx(playerid), playerid);
         SendReportMessage(COLOR_LIGHTRED, 1, "AdmCmd: [Reklam]: %s", string);
-		if (lastadvert >= MAX_LAST_ADVERT) lastadvert = 0;
-		else lastadvert++;
-		format(LastAdvertInfo[lastadvert][advertText], 144, "%s", string);
-		LastAdvertInfo[lastadvert][adverttime] = gettime();
-		LastAdvertInfo[lastadvert][advertnumber] = PlayerInfo[playerid][pNumber];
 		Iter_Add(Reklamlar, id);
 		} else return SendErrorMessage(playerid, "Sunucuda maksimum reklam istek sayýsýna ulaþýlmýþ, lütfen bekleyin.");
     return 1;
@@ -289,13 +285,18 @@ ReklamKabul(playerid, id) {
             }
         }
         PlayerInfo[pid][pVerdigiReklam] = -1;
-        SendServerMessage(pid, "Reklamýnýz %s tarafýndan kabul edilmiþ ve yayýnlanmýþtýr.", GetNameEx(playerid));
+        SendServerMessage(pid, "Reklamýnýz %s tarafýndan kabul edilmiþ ve yayýnlanmýþtýr.", GetAccName(playerid));
         SendServerMessage(playerid, "%s adlý oyuncunun reklamýný kabul ettiniz ve yayýnladýnýz.", GetNameEx(pid));
         foreach(new j : Player) {
             if(PlayerInfo[playerid][pSettings] & togAdv) continue;
             SendClientMessageEx(j, COLOR_GREENFORADVERT, "[Reklam] %s (Ýletiþim: %d)", ReklamInfo[id][reklamText], ReklamInfo[id][reklamTelefon]);
         }
         SendReportMessage(COLOR_LIGHTRED, 1, "AdmCmd: Reklam veren kullanýcý: %s (Telefon: %d)", GetNameEx(pid), ReklamInfo[id][reklamTelefon]);
+		if (lastadvert >= MAX_LAST_ADVERT) lastadvert = 0;
+		else lastadvert++;
+		format(LastAdvertInfo[lastadvert][advertText], 144, "%s", string);
+		LastAdvertInfo[lastadvert][adverttime] = gettime();
+		LastAdvertInfo[lastadvert][advertnumber] = PlayerInfo[playerid][pNumber];
         ReklamSil(id);
         return 1;
 	}
@@ -313,7 +314,7 @@ ReklamRed(playerid, id, sebep[]) {
             }
         }
         PlayerInfo[pid][pVerdigiReklam] = -1;
-        SendServerMessage(pid, "Reklamýnýz %s tarafýndan reddedilmiþtir. Sebep: %s", GetNameEx(playerid), sebep);
+        SendServerMessage(pid, "Reklamýnýz %s tarafýndan reddedilmiþtir. Sebep: %s", GetAccName(playerid), sebep);
         SendServerMessage(playerid, "%s adlý oyuncunun reklamýný reddettiniz. Sebep: %s", GetNameEx(pid), sebep);
         ReklamSil(id);
         return 1;
