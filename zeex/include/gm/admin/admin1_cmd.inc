@@ -1459,6 +1459,19 @@ CMD:specoff(playerid, params[])
 	return 1;
 }
 
+
+CMD:izlemeyibirak(playerid, params[])
+{
+	new faction = PlayerInfo[playerid][pFaction];
+	if (!IsFactionPolice(faction)) return SendErrorMessage(playerid, "Bu komutu kullanabilmek için polis olmalýsýn.");
+	if(GetPlayerState(playerid) != PLAYER_STATE_SPECTATING) return SendErrorMessage(playerid, "Þu anda kamera modunda deðilsiniz.");
+
+	SpectateOff(playerid);
+	SendServerMessage(playerid, "Ýzleme modundan çýktý.", GetNameEx(playerid));
+
+	return 1;
+}
+
 CMD:aprison(playerid, params[])
 {
 	//return SendErrorMessage(playerid, "The prison is still disabled!");

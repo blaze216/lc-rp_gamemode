@@ -177,7 +177,10 @@ enum PLAYER_DATA_ENUM
 	pDependence,
 	pDemolition,
 	pFishTime,
+	pVerdigiReklam,
+	pReklamID[50],
 	pMark[MAX_PLAYER_MARKS],
+	pIlgilendigiReklam,
 	pBagimlilikEXP, // Default: 0, 3 olunca baðýmlý olur.
 	pBagimlilikSeviye, // Baðýmlý Deðil: 0 - Baðýmlý: 1
 	pUTedaviEXP, // Default: 0, 10 olunca tedavi sonlanýr - baðýmlýlýk biter. Uyuþturucu kullanýrsa tedavi sýfýrlanýr.

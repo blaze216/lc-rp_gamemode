@@ -930,6 +930,7 @@ ResetPlayerVariables(playerid)
 	PlayerInfo[playerid][pOwnedChannel] = 
 	PlayerInfo[playerid][pAuthed] = 
 	PlayerInfo[playerid][pSpareKey] =
+	PlayerInfo[playerid][pVerdigiReklam] = -1;
 	PlayerInfo[playerid][pWorkOn] = 
 	PlayerInfo[playerid][pWalk] = 
 	PlayerInfo[playerid][pFaction] = 
