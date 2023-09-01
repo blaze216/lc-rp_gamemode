@@ -407,7 +407,7 @@ Keys_OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	if (HOLDING(KEY_NO))
 	{
 		if (GetPlayerDeniedAction(playerid) != 0) return 1;
-		if (GetNearVehicle(playerid, 2.5) != 0) pc_cmd_arac(playerid, "kilit");
+		if (GetNearVehicle(playerid, 3.0) != 0) pc_cmd_arac(playerid, "kilit");
 		if (HasTrash[playerid]) Trash_ResetPlayer(playerid);
 	}
 
